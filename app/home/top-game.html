@@ -1,0 +1,32 @@
+<div class="photo">
+    <img ng-src="{{sampleGame.image}}" class="no-resize" width="350" height="260" alt="Can't display img"/>
+</div>
+<div class="info">
+    <div class="row">
+        <div class="category col-md-12">
+            <h5>{{sampleGame.name}}</h5>
+            <h5 class="category-text-color">
+                {{sampleGame.category}}</h5>
+        </div>
+        <div class="rating hidden-sm col-md-6">
+            <a ng-repeat="rating in range(0,(sampleGame.rating - 1),1)">
+                <i class="category-text-color fa fa-star"></i>
+            </a>
+            <a ng-repeat="rating in range(0, (5 - sampleGame.rating - 1),1)">
+                <i class="fa fa-star-o"></i>
+            </a>
+        </div>
+    </div>
+    <div class="separator clear-left">
+        <p class="btn-add">
+            <i class="fa fa-heart"></i>
+            <a ui-sref="games" class="hidden-sm">Add to favourites</a>
+        </p>
+        <p class="btn-details">
+            <i class="fa fa-list"></i>
+            <a ui-sref="games" class="hidden-sm">More details</a>
+        </p>
+    </div>
+    <div class="clearfix">
+    </div>
+</div>

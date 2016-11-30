@@ -1,0 +1,14 @@
+{
+  "name": "cocoamphoactate_frontend",
+  "description": "Web-app project",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular": "~1.5.0",
+    "angular-route": "~1.5.0",
+    "angular-loader": "~1.5.0",
+    "angular-mocks": "~1.5.0",
+    "angular-ui-router": "0.3.1",
+    "jquery": "^3.1.1",
+    "bootstrap": "^3.3.7"
+  }
+}

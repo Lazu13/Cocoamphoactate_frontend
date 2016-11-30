@@ -1,0 +1,22 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid tab-pane fade in active">
+        <div class="navbar-header">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a class="navbar-brand" ui-sref="home" ui-sref-active="active">Cocoamphoactate</a>
+                </li>
+            </ul>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a id="games" ui-sref="games" ui-sref-active="active">Games</a></li>
+            <li><a id="" href="#/users">Users</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a>
+                <div ng-include="'home/typeahead.html'"></div>
+            </a></li>
+            <li><a href="#/users/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="#/users/login:"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+    </div>
+</nav>

@@ -9,14 +9,14 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a id="games" ui-sref="games" ui-sref-active="active">Games</a></li>
-            <li><a id="" href="#/users">Users</a></li>
+            <li><a id="users" ui-sref="users" ui-sref-active="active">Users</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li><a>
                 <div ng-include="'home/typeahead.html'"></div>
             </a></li>
-            <li><a href="#/users/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li><a href="#/users/login:"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li><a id='register' ui-sref="register" ui-sref-active="active"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a id='login' ui-sref="login" ui-sref-active="active"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         </ul>
     </div>
 </nav>

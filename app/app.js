@@ -3,33 +3,12 @@
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
     'ui.router',
-    'myApp.home'
+    'myApp.home',
+    'myApp.register',
+    'ui.validate'
 ])
 
-    .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider,  $urlRouterProvider) {
-
-        /*
-         $locationProvider.html5Mode({
-         enabled: true,
-         requireBase: false
-         });
-        /*
-         $routeProvider
-
-         .when("/", {
-         templateUrl: "/home/home.html",
-         controller: "home/HomeCtrl"
-         })
-
-         .when("/games", {
-         templateUrl: "games/games.html"
-         })
-
-         .otherwise({
-         redirectTo: "/"
-         });
-
-         */
+    .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
 
         $urlRouterProvider.otherwise('/');
 
@@ -45,8 +24,23 @@ angular.module('myApp', [
             template: '<h3>hello world!</h3>'
         };
 
+        var users = {
+            name: 'users',
+            url: '/users',
+            templateUrl: 'users/users.html'
+        };
+
+        var register = {
+            name: 'register',
+            url: '/register',
+            templateUrl: 'register/register.html',
+            controller: 'RegisterCtrl'
+        };
+
         $stateProvider.state(games);
         $stateProvider.state(home);
+        $stateProvider.state(users);
+        $stateProvider.state(register);
 
     }]);
 

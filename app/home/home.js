@@ -37,6 +37,6 @@ angular.module('myApp.home', [])
             };
 
         $scope.games = [sampleGame, sampleGame1, sampleGame2]
-
+        $scope.games_last_month = [sampleGame1, sampleGame, sampleGame2];
 
     });

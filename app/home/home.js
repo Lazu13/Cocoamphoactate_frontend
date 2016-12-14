@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('myApp.home', [])
+angular.module('myApp.home', [
+    'myApp'
+])
 
     .controller('HomeCtrl', function ($scope) {
         $scope.range = function (min, max, step) {
@@ -36,7 +38,7 @@ angular.module('myApp.home', [])
                 'image': 'http://planetagracza.pl/wp-content/uploads/2015/12/Uncharted-47-800x445.jpg'
             };
 
-        $scope.games = [sampleGame, sampleGame1, sampleGame2]
+        $scope.games = [sampleGame, sampleGame1, sampleGame2];
         $scope.games_last_month = [sampleGame1, sampleGame, sampleGame2];
 
     });

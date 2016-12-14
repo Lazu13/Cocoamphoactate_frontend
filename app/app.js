@@ -6,6 +6,7 @@ angular.module('myApp', [
     'myApp.home',
     'myApp.register',
     'myApp.login',
+    'myApp.games',
     'ui.validate'
 ])
 
@@ -23,8 +24,8 @@ angular.module('myApp', [
         var games = {
             name: 'games',
             url: '/games',
-            template: '<h3>hello world!</h3>'
-
+            templateUrl: 'games/games.html',
+            controller: 'GamesCtrl'
         };
 
         var users = {
@@ -48,9 +49,10 @@ angular.module('myApp', [
             controller: 'LoginCtrl'
         };
 
-        $stateProvider.state(games);
         $stateProvider.state(home);
+        $stateProvider.state(games);
         $stateProvider.state(users);
+
         $stateProvider.state(register);
         $stateProvider.state(login);
         

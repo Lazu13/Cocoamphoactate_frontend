@@ -14,7 +14,6 @@ angular.module('myApp.register', [
 
     })
 
-    // Directive thanks to stack and pkozlowski.opensource (with small modification)
     .directive('noSpaces', function () {
         return {
             require: 'ngModel',
@@ -35,7 +34,6 @@ angular.module('myApp.register', [
         };
     })
 
-    // Directive thanks to stack and pkozlowski.opensource (with small modification)
     .directive('toLower', function () {
         return {
             require: 'ngModel',

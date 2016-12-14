@@ -5,6 +5,7 @@ angular.module('myApp', [
     'ui.router',
     'myApp.home',
     'myApp.register',
+    'myApp.login',
     'ui.validate'
 ])
 
@@ -15,19 +16,22 @@ angular.module('myApp', [
         var home = {
             name: 'home',
             url: '/',
-            templateUrl: 'home/home.html'
+            templateUrl: 'home/home.html',
+            controller: 'HomeCtrl'
         };
 
         var games = {
             name: 'games',
             url: '/games',
             template: '<h3>hello world!</h3>'
+
         };
 
         var users = {
             name: 'users',
             url: '/users',
-            templateUrl: 'users/users.html'
+            templateUrl: 'users/users.html',
+            controller : 'UsersCtrl'
         };
 
         var register = {
@@ -37,11 +41,19 @@ angular.module('myApp', [
             controller: 'RegisterCtrl'
         };
 
+        var login = {
+            name: 'login',
+            url: '/login',
+            templateUrl: 'login/login.html',
+            controller: 'LoginCtrl'
+        };
+
         $stateProvider.state(games);
         $stateProvider.state(home);
         $stateProvider.state(users);
         $stateProvider.state(register);
-
+        $stateProvider.state(login);
+        
     }]);
 
 

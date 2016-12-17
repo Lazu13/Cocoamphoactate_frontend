@@ -24,16 +24,18 @@ angular.module('myApp.typeahead', [
 
         $scope.getValue = function(val) {
             return $scope.games.map(function (item) {
-                return item.name;
+                $scope.selectedGame = item;
+                return item;
             })
         };
 
-        $scope.goOn = function () {
-            $state.go('home')
+        $scope.goOn = function ($item) {
+            $state.go('person', {"personId": $item.id});
         };
 
         var sampleGame =
             {
+                'id' : 3,
                 'name': 'Wiedzmin 3: dziki gon',
                 'category': 'RPG',
                 'rating': 3,
@@ -45,6 +47,7 @@ angular.module('myApp.typeahead', [
 
         var sampleGame1 =
             {
+                'id' : 1,
                 'name': 'Fifa17',
                 'category': 'Sport',
                 'rating': 4,
@@ -56,6 +59,7 @@ angular.module('myApp.typeahead', [
 
         var sampleGame2 =
             {
+                'id' : 2,
                 'name': 'Uncharted 4: Kres Złodzieja',
                 'category': 'Action',
                 'rating': 5,

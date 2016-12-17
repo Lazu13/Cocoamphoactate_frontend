@@ -8,3 +8,7 @@
     height: 50px;
     vertical-align: top;
 }
+
+input, select, textarea{
+    color: black;
+}

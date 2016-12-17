@@ -1,14 +1,15 @@
 'use strict';
 
-angular.module('myApp.users', ['ngRoute'])
+angular.module('myApp.users', [
+    'ngRoute',
+    'myApp',
+    'myApp.person'
+])
 
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/users', {
-    templateUrl: 'users/users.html',
-    controller: 'UsersCtrl'
-  });
-}])
 
-.controller('UsersCtrl', [function() {
+    .controller('UsersCtrl', function ($scope) {
 
-}]);
+        $scope.person = {
+            person_id: 1
+        };
+    });

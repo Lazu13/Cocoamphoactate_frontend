@@ -43,3 +43,7 @@ p.btn-details {
     display: inline;
     white-space: nowrap;
 }
+
+.panel-heading:hover {
+    background-color: #F5F5DC;
+}

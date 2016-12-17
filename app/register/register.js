@@ -3,13 +3,18 @@
 angular.module('myApp.register', [
     'ui.validate',
     'ui.router',
+    'vcRecaptcha',
     'myApp'
 ])
 
-    .controller('RegisterCtrl', function ($scope, $state) {
+    .controller('RegisterCtrl', function ($scope, $state, vcRecaptchaService) {
 
         $scope.goto = function () {
             $state.go('home');
+        };
+
+        $scope.mySubmit = function (myFields) {
+            console.log(myFields.myRecaptchaResponse);
         }
 
     })

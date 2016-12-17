@@ -7,6 +7,9 @@ angular.module('myApp', [
     'myApp.register',
     'myApp.login',
     'myApp.games',
+    'myApp.users',
+    'myApp.person',
+    'myApp.typeahead',
     'ui.validate'
 ])
 
@@ -21,6 +24,13 @@ angular.module('myApp', [
             controller: 'HomeCtrl'
         };
 
+        var game = {
+            name: 'game',
+            url: '/game/:gameId',
+            templateUrl: 'game/game.html',
+            controller: 'GameCtrl'
+        };
+
         var games = {
             name: 'games',
             url: '/games',
@@ -32,7 +42,7 @@ angular.module('myApp', [
             name: 'users',
             url: '/users',
             templateUrl: 'users/users.html',
-            controller : 'UsersCtrl'
+            controller: 'UsersCtrl'
         };
 
         var register = {
@@ -49,13 +59,24 @@ angular.module('myApp', [
             controller: 'LoginCtrl'
         };
 
+        var person = {
+            name: 'person',
+            url: '/person/{personId}',
+            templateUrl: 'person/person.html',
+            controller: 'PersonCtrl'
+        };
+
         $stateProvider.state(home);
+
         $stateProvider.state(games);
+        $stateProvider.state(game);
+
         $stateProvider.state(users);
 
         $stateProvider.state(register);
         $stateProvider.state(login);
-        
+        $stateProvider.state(person);
+
     }]);
 
 

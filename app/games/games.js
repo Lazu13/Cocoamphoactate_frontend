@@ -16,6 +16,7 @@ angular.module('myApp.games', [
 
         var sampleGame =
             {
+                'id' : 0 ,
                 'name': 'Wiedzmin 3: dziki gon',
                 'category': 'RPG',
                 'rating': 3,
@@ -27,6 +28,7 @@ angular.module('myApp.games', [
 
         var sampleGame1 =
             {
+                'id' : 1 ,
                 'name': 'Fifa17',
                 'category': 'Sport',
                 'rating': 4,
@@ -38,6 +40,7 @@ angular.module('myApp.games', [
 
         var sampleGame2 =
             {
+                'id' : 2 ,
                 'name': 'Uncharted 4: Kres Złodzieja',
                 'category': 'Action',
                 'rating': 5,

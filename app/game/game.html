@@ -1,10 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<link href="games/games.css" rel="stylesheet">
 
-</body>
-</html>
+<div ng-app="myApp.games" class="games-container container" ng-controller="GameCtrl">
+    <h3><kbd>Games Set</kbd></h3><br/>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{sampleGame.name}}</h3>
+            </div>
+            <div class="panel-body">
+                <div class="col-sm-4 nopadding">
+                    <div class="photo">
+                        <img ng-src="{{sampleGame.image}}" class="img-rounded" width="250" height="160"
+                             alt="Can't display img"/>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+                    <div class="category col-md-6">
+                        <h4>Platform:</h4>
+                        <h4>Rating: </h4>
+                        <h4>Description: </h4>
+
+                        <div id="bottomOfGame" class="separator clear-left">
+                            <p class="btn-add">
+                                <i class="fa fa-heart"></i>
+                                <a ui-sref="games" class="hidden-sm">Add to favourites</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="rating col-md-6">
+                        <h4 class="category-text-color">
+                            {{sampleGame.category}}
+                        </h4>
+                        <a ng-repeat="rating in range(0,(sampleGame.rating - 1),1)">
+                            <i class="category-text-color fa fa-star"></i>
+                        </a>
+                        <a ng-repeat="rating in range(0, (5 - sampleGame.rating - 1),1)">
+                            <i class="fa fa-star-o"></i>
+                        </a>
+                        <h6>{{sampleGame.description}}
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="game/game.css" rel="stylesheet">
+
+<div class="games-container container" ng-app="myApp.games" ng-controller="GameCtrl">
+    <div class="panel panel-default col-md-12">
+        <div class="titleBox">
+            <label>Comment Box</label>
+        </div>
+        <div class="actionBox" ng-repeat="comment in comments">
+            <div class="commentText">
+                <p class="">{{comment.comment}}</p> <span
+                    class="date sub-text">{{comment.userLogin}}
+                     <a ng-repeat="rating in range(0,(sampleGame.rating - 1),1)">
+                            <i class="category-text-color fa fa-star"></i>
+                     </a>
+                     <a ng-repeat="rating in range(0, (5 - sampleGame.rating - 1),1)">
+                            <i class="fa fa-star-o"></i>
+                     </a></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="bower_components/angular-input-stars/angular-input-stars.css" rel="stylesheet">
+
+<div class="games-container container" ng-app="myApp.games" ng-controller="GameCtrl">
+    <div class="panel panel-default col-md-12">
+        <div class="titleBox">
+            <label>Leave comment</label>
+        </div>
+        <div class="actionBox">
+            <label>Rating: </label>
+            <input-stars ng-model="starRating" max="5"></input-stars>
+            <span class="label label-info">value: {{starRating}}</span>
+        </div>
+        <div class="form-group">
+            <label for="comment">Comment:</label>
+            <textarea class="form-control" rows="5" id="comment"></textarea>
+        </div>
+        <div >
+            <button class="btn btn-default" type='button' >
+                Add comment.
+            </button>
+        </div>
+        <br/>
+    </div>
+</div>

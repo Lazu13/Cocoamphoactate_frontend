@@ -7,9 +7,11 @@ angular.module('myApp', [
     'myApp.register',
     'myApp.login',
     'myApp.games',
+    'myApp.game',
     'myApp.users',
     'myApp.person',
     'myApp.typeahead',
+    'angular-input-stars',
     'ui.validate'
 ])
 
@@ -26,7 +28,7 @@ angular.module('myApp', [
 
         var game = {
             name: 'game',
-            url: '/game/:gameId',
+            url: '/game/{gameId}',
             templateUrl: 'game/game.html',
             controller: 'GameCtrl'
         };

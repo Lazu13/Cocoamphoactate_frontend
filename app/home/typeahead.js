@@ -30,7 +30,7 @@ angular.module('myApp.typeahead', [
         };
 
         $scope.goOn = function ($item) {
-            $state.go('person', {"personId": $item.id});
+            $state.go('game', {"gameId": $item.id});
         };
 
         var sampleGame =

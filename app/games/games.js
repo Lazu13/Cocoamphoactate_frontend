@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('myApp.games', [
-    'myApp.home'
+    'myApp'
 ])
 
-    .controller('GamesCtrl', function ($scope) {
+    .controller('GamesCtrl', function ($scope, $http) {
         $scope.range = function (min, max, step) {
             step = step || 1;
             var input = [];
@@ -16,9 +16,9 @@ angular.module('myApp.games', [
 
         var sampleGame =
             {
-                'id' : 0 ,
+                'id': 0,
                 'name': 'Wiedzmin 3: dziki gon',
-                'category': 'RPG',
+                'platform': 'RPG',
                 'rating': 3,
                 'readNum': 100,
                 'readMoreText': "Read more",
@@ -28,9 +28,9 @@ angular.module('myApp.games', [
 
         var sampleGame1 =
             {
-                'id' : 1 ,
+                'id': 1,
                 'name': 'Fifa17',
-                'category': 'Sport',
+                'platform': 'Sport',
                 'rating': 4,
                 'readNum': 100,
                 'readMoreText': "Read more",
@@ -40,9 +40,9 @@ angular.module('myApp.games', [
 
         var sampleGame2 =
             {
-                'id' : 2 ,
+                'id': 2,
                 'name': 'Uncharted 4: Kres Złodzieja',
-                'category': 'Action',
+                'platform': 'Action',
                 'rating': 5,
                 'readNum': 100,
                 'readMoreText': "Read more",
@@ -51,19 +51,40 @@ angular.module('myApp.games', [
             };
 
         $scope.tmp = sampleGame;
-        $scope.games = [sampleGame, sampleGame1, sampleGame2];
+        // $scope.games = [sampleGame, sampleGame1, sampleGame2];
+        $scope.getGames = function () {
+            $http.get('http://127.0.0.1:8000/games', {
+                headers: {
+                    'Authorization': 'token a6047d9688d4505babebac76e116961ba56ff3eb',//'token ' + $cookies.get('Authorization'),
+                    'Content-Type': 'application/json'
+                }
+            })
+                .success(function (data) {
+                    console.log(data);
+                    data.forEach(function (item) {
+                        item.readNum = 10;
+                        item.readMoreText = "Read more";
+                        item.rating = Math.floor((Math.random() * 5) + 1);
+                    });
+                    $scope.games = data;
+                })
+                .error(function () {
+                    $scope.games = [];
+                });
+        };
+
         $scope.games_last_month = [sampleGame1, sampleGame, sampleGame2];
 
 
         // TODO: repair dots disappearing
         $scope.readMore = function (exsampleGame) {
             if (exsampleGame.readMoreText == "Read more") {
-                exsampleGame.readNum = 50000;
+                exsampleGame.readNum = 50;
                 exsampleGame.readMoreText = "Read less";
                 jQuery(".readMoreTextDots").html("")
             }
             else {
-                exsampleGame.readNum = 100;
+                exsampleGame.readNum = 10;
                 exsampleGame.readMoreText = "Read more";
                 jQuery(".readMoreTextDots").html('...')//.prop('disabled', true);
             }

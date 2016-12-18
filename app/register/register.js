@@ -7,10 +7,35 @@ angular.module('myApp.register', [
     'myApp'
 ])
 
-    .controller('RegisterCtrl', function ($scope, $state, vcRecaptchaService) {
+    .controller('RegisterCtrl', function ($scope, $state, vcRecaptchaService, $http) {
 
         $scope.goto = function () {
-            $state.go('home');
+            var dataToSend = {
+                'id' : Math.floor((Math.random() * 9999999) + 1),
+                'username': $scope.user.name,
+                'password': $scope.user.password,
+                'email' : $scope.user.email
+            };
+
+            var config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            $http.post('http://127.0.0.1:8000/users/register',
+                dataToSend,
+                config
+            )
+                .success(function (data) {
+                    //$cookies.put('Authorization', data.token);
+                    //console.log($cookies.get('Authorization'));
+                    alert("Zarejestrowano pomyślnie");
+                    $state.go('login');
+                })
+                .error(function () {
+                    alert("Nie zalogowano");
+                });
         };
 
         $scope.mySubmit = function (myFields) {

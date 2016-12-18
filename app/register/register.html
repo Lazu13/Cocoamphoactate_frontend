@@ -5,8 +5,8 @@
         <fieldset>
 
             <div id="legend">
-            <legend class=""><h3>Register</h3></legend>
-        </div>
+                <legend class=""><h3>Register</h3></legend>
+            </div>
             <div class="control-group">
                 <label class="control-label" for="username">Username</label>
                 <div class="controls">
@@ -28,7 +28,7 @@
             <div class="control-group">
                 <label class="control-label" for="password">Password</label>
                 <div class="controls">
-                    <input type="password" id="password" name="password" placeholder="" ng-model="password"
+                    <input type="password" id="password" name="password" placeholder="" ng-model="user.password"
                            ng-minlength='6' required class="form-control input-lg">
                     <p class="help-block">Password should be at least 6 characters</p>
                 </div>
@@ -36,18 +36,19 @@
 
             <div class="control-group">
                 <label class="control-label" for="password_confirm">Password (Confirm)</label>
-                <br class="controls">
-                <input type="password" id="password_confirm" required
-                       name="password_confirm" placeholder="" class="form-control input-lg" ng-model="password_confirm"
-                       ui-validate=" '$value==password' " ui-validate-watch=" 'password' ">
-                <br/>
+                <div class="controls">
+                    <input type="password" id="password_confirm" required
+                           name="password_confirm" placeholder="" class="form-control input-lg"
+                           ng-model="password_confirm"
+                           ui-validate=" '$value==user.password' " ui-validate-watch=" 'user.password' "></div>
+                <div/>
             </div>
 
             <div class="control-group">
                 <div class="controls">
                     <!--<div-->
-                            <!--vc-recaptcha-->
-                            <!--ng-model="myFields.myRecaptchaResponse"-->
+                    <!--vc-recaptcha-->
+                    <!--ng-model="myFields.myRecaptchaResponse"-->
                     <!--&gt;</div>-->
                     <span ng-show="register.$invalid" class="label label-danger">Required</span>
                     <button class="btn btn-success" ng-click="goto()"

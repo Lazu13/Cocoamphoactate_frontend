@@ -4,6 +4,7 @@
 angular.module('myApp', [
     'ui.router',
     'ngResource',
+    'ngCookies',
     'myApp.home',
     'myApp.register',
     'myApp.login',
@@ -16,124 +17,98 @@ angular.module('myApp', [
     'ui.validate'
 ])
 
-    .factory('principal', ['$q', '$http', '$timeout',
-        function ($q, $http, $timeout) {
+    .factory('principal', ['$q', '$http', '$cookies', function ($q, $http, $cookies) {
 
-            var _identity = undefined,
-                _authenticated = false;
 
-            return {
+        var _identity = undefined,
+            _authenticated = false,
+            _cookie = $cookies.get('Authorization');
 
-                isIdentityResolved: function () {
-                    return angular.isDefined(_identity);
-                },
+        return {
 
-                isAuthenticated: function () {
-                    return _authenticated;
-                },
+            isIdentityResolved: function () {
+                return angular.isDefined(_identity);
+            },
 
-                isInRole: function (role) {
-                    if (!_authenticated || !_identity.roles)
-                        return false;
+            isAuthenticated: function () {
+                return _authenticated;
+            },
 
-                    return _identity.roles.indexOf(role) != -1;
-                },
-
-                isInAnyRole: function (roles) {
-                    if (!_authenticated || !_identity.roles) return false;
-
-                    for (var i = 0; i < roles.length; i++) {
-                        if (this.isInRole(roles[i])) return true;
-                    }
-
+            isInRole: function (role) {
+                if (!_authenticated || !_identity.roles)
                     return false;
-                },
 
-                authenticate: function (identity) {
-                    _identity = identity;
-                    _authenticated = identity != null;
-                },
+                return _identity.roles.indexOf(role) != -1;
+            },
 
-                identity: function (force) {
-                    var deferred = $q.defer();
+            isInAnyRole: function (roles) {
+                if (!_authenticated || !_identity.roles) return false;
 
-                    if (force === true)
-                        _identity = undefined;
+                for (var i = 0; i < roles.length; i++) {
+                    if (this.isInRole(roles[i])) return true;
+                }
 
-                    // check and see if we have retrieved the
-                    // identity data from the server. if we have,
-                    // reuse it by immediately resolving
-                    if (angular.isDefined(_identity)) {
-                        deferred.resolve(_identity);
+                return false;
+            },
 
-                        return deferred.promise;
-                    }
+            authenticate: function (identity) {
+                _identity = identity;
+                _authenticated = identity != null;
+            },
 
-                    // otherwise, retrieve the identity data from the
-                    // server, update the identity object, and then
-                    // resolve.
-                    /*
-                     var identiter = $resource('http://yourdomain.com:8000/user', {}, {
-                     gett: {
-                     method: 'get',
-                     headers: {'authorization': 'token 85347a3bda370c2291c772815fd4a3ec7d231a32'}
-                     }
-                     });
+            identity: function (force) {
+                var deferred = $q.defer();
 
-                     identiter.gett({}, function(){console.log("asdasdasdasdas")});
-                     .$promise.then(function (user) {
-                     console.log(user);
-                     }, function (errResponse) {
-                     console.log("kurwa");
-                     });*/
-/*                    $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-                    $http.defaults.headers.common['Authorization'] = 'token e6ca92786ef60fdb5a1c110a76b4507cdca04c9e';
-                    $http.defaults.headers.common['Accept'] = 'application/json;odata=verbose';*/
-                    $http.get('http://127.0.0.1:8000/user', {
-                        headers: {
-                            'Authorization': 'token e6ca92786ef60fdb5a1c110a76b4507cdca04c9e',
-                            'Content-Type' : 'application/json'
-                        }
-                    })
-                        .success(function (response) {
-                            console.log(response);
-                        })
-                        .error(function (response) {
-                            console.log(response);
-                        });
+                if (force === true)
+                    _identity = undefined;
 
-                    //           $http.get('/svc/account/identity',
-                    //                     { ignoreErrors: true })
-                    //                .success(function(data) {
-                    //                    _identity = data;
-                    //                    _authenticated = true;
-                    //                    deferred.resolve(_identity);
-                    //                })
-                    //                .error(function () {
-                    //                    _identity = null;
-                    //                    _authenticated = false;
-                    //                    deferred.resolve(_identity);
-                    //                });
+                if (angular.isDefined(_identity)) {
+                    deferred.resolve(_identity);
 
-                    // for the sake of the demo, fake the lookup
-                    // by using a timeout to create a valid
-                    // fake identity. in reality,  you'll want
-                    // something more like the $http request
-                    // commented out above. in this example, we fake
-                    // looking up to find the user is
-                    // not logged in
-
-                    /*
-                    var self = this;
-                    $timeout(function () {
-                        self.authenticate(null);
-                        deferred.resolve(_identity);
-                    }, 1000);
-*/
                     return deferred.promise;
                 }
-            };
-        }
+
+
+                /*
+                 var identiter = $resource('http://yourdomain.com:8000/user', {}, {
+                 gett: {
+                 method: 'get',
+                 headers: {'authorization': 'token 85347a3bda370c2291c772815fd4a3ec7d231a32'}
+                 }
+                 });
+
+                 identiter.gett({}, function(){console.log("asdasdasdasdas")});
+                 .$promise.then(function (user) {
+                 console.log(user);
+                 }, function (errResponse) {
+
+                 });*/
+                /*                    $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+                 $http.defaults.headers.common['Authorization'] = 'token e6ca92786ef60fdb5a1c110a76b4507cdca04c9e';
+                 $http.defaults.headers.common['Accept'] = 'application/json;odata=verbose';*/
+                //console.log($cookies.get('Authorization'));
+                $http.get('http://127.0.0.1:8000/user', {
+                    headers: {
+                        'Authorization': 'token a6047d9688d4505babebac76e116961ba56ff3eb',//'token ' + $cookies.get('Authorization'),
+                        'Content-Type': 'application/json'
+                    }
+                })
+                    .success(function (data) {
+                        //console.log(data);
+                        _identity = data;
+                        _authenticated = true;
+                        deferred.resolve(_identity);
+                    })
+                    .error(function () {
+                        _identity = null;
+                        _authenticated = false;
+                        deferred.resolve(_identity);
+                    });
+
+                return deferred.promise;
+            }
+        };
+    }
     ])
 
     .factory('authorization', ['$rootScope', '$state', 'principal',
@@ -143,28 +118,22 @@ angular.module('myApp', [
                     return principal.identity()
                         .then(function () {
                             var isAuthenticated = principal.isAuthenticated();
+                            console.log(isAuthenticated);
+                            /*if ($rootScope.toState.data.roles && $rootScope.toState.data.roles.length > 0
+                             && !principal.isInAnyRole($rootScope.toState.data.roles)) {*/
+                            if (isAuthenticated) {
+                                // user is signed in but not
+                                // authorized for desired state
 
-                            if ($rootScope.toState.data.roles && $rootScope.toState.data.roles.length > 0
-                                && !principal.isInAnyRole($rootScope.toState.data.roles)) {
-                                if (isAuthenticated) {
-                                    // user is signed in but not
-                                    // authorized for desired state
-                                    $state.go('home');
-                                } else {
-                                    // user is not authenticated. Stow
-                                    // the state they wanted before you
-                                    // send them to the sign-in state, so
-                                    // you can return them when you're done
-                                    $rootScope.returnToState
-                                        = $rootScope.toState;
-                                    $rootScope.returnToStateParams
-                                        = $rootScope.toStateParams;
+                                //$state.go($location.path());
+                            } else {
 
-                                    // now, send them to the signin state
-                                    // so they can log in
-                                    $state.go('register');
-                                }
+                                $rootScope.returnToState = $rootScope.toState;
+                                $rootScope.returnToStateParams = $rootScope.toStateParams;
+
+                                $state.go('login');
                             }
+                            //}
                         });
                 }
             };
@@ -206,6 +175,13 @@ angular.module('myApp', [
         var users = {
             name: 'users',
             url: '/users',
+            resolve: {
+                authorize: ['authorization',
+                    function (authorization) {
+                        return authorization.authorize();
+                    }
+                ]
+            },
             templateUrl: 'users/users.html',
             controller: 'UsersCtrl'
         };
@@ -242,21 +218,17 @@ angular.module('myApp', [
         $stateProvider.state(login);
         $stateProvider.state(person);
 
-    }])
-
+    }]);
+/*
     .run(['$rootScope', '$state', '$stateParams',
         'authorization', 'principal',
         function ($rootScope, $state, $stateParams,
                   authorization, principal) {
-            $rootScope.$on('$stateChangeStart',
+            $rootScope.$on('$stateChangeSuccess',
                 function (event, toState, toStateParams) {
-                    // track the state the user wants to go to;
-                    // authorization service needs this
                     $rootScope.toState = toState;
                     $rootScope.toStateParams = toStateParams;
-                    // if the principal is resolved, do an
-                    // authorization check immediately. otherwise,
-                    // it'll be done when the state it resolved.
+
                     if (principal.isIdentityResolved())
                         authorization.authorize();
                 });
@@ -266,4 +238,5 @@ angular.module('myApp', [
 
 
 
+*/
 

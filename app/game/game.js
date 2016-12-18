@@ -2,10 +2,11 @@
 
 angular.module('myApp.game', [
     'myApp.home',
+    'ui.router',
     'angular-input-stars'
 ])
 
-    .controller('GameCtrl', function ($scope) {
+    .controller('GameCtrl', ['$scope', '$state', function ($scope, $state) {
         $scope.range = function (min, max, step) {
             step = step || 1;
             var input = [];
@@ -39,4 +40,22 @@ angular.module('myApp.game', [
             }
         ];
 
-    });
+        $scope.clickHandler = function(starRating)
+        {
+            $scope.starRating = starRating;
+        };
+
+        $scope.confirmation = function () {
+            var txt;
+            var r = confirm("Add comment?");
+            if (r == true) {
+                txt = 'Dodano komentarz';
+                $state.go('home');
+            }
+            else {
+                txt = 'Nie dodano komentarza'
+            }
+            alert(txt);
+        };
+
+    }]);

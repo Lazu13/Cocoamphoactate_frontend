@@ -77,16 +77,16 @@
         </div>
         <div class="actionBox">
             <label>Rating: </label>
-            <input-stars ng-model="starRating" max="5"></input-stars>
+            <input-stars ng-model="starRating" on-star-click="clickHandler(starRating)" max="5"></input-stars>
             <span class="label label-info">value: {{starRating}}</span>
         </div>
         <div class="form-group">
             <label for="comment">Comment:</label>
-            <textarea class="form-control" rows="5" id="comment"></textarea>
+            <textarea class="form-control" rows="5" id="comment" ng-model="commentRating"></textarea>
         </div>
-        <div >
-            <button class="btn btn-default" type='button' >
-                Add comment.
+        <div>
+            <button class="btn btn-default" type='button' ng-click="confirmation()">
+                Add comment
             </button>
         </div>
         <br/>

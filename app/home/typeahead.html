@@ -2,5 +2,5 @@
 
 <div ng-app=" myApp.typeahead" ng-controller="TypeaheadCtrl">
     <input type="text" ng-model="typeaheadSelected" typeahead-on-select="goOn($item)"
-           uib-typeahead="value as value.name for value in getValue($viewValue) | filter:$viewValue | limitTo:8">
+           uib-typeahead="value as value.name for value in getValue($viewValue) | filter:$viewValue | limitTo:5">
 </div>

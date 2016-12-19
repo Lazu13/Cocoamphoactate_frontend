@@ -21,8 +21,7 @@ angular.module('myApp', [
 
 
         var _identity = undefined,
-            _authenticated = false,
-            _cookie = $cookies.get('Authorization');
+            _authenticated = false
 
         return {
 
@@ -68,7 +67,7 @@ angular.module('myApp', [
                     return deferred.promise;
                 }
 
-
+                // TODO: async request
                 /*
                  var identiter = $resource('http://yourdomain.com:8000/user', {}, {
                  gett: {
@@ -89,12 +88,12 @@ angular.module('myApp', [
                 //console.log($cookies.get('Authorization'));
                 $http.get('http://127.0.0.1:8000/user', {
                     headers: {
-                        'Authorization': 'token a6047d9688d4505babebac76e116961ba56ff3eb',//'token ' + $cookies.get('Authorization'),
+                        'Authorization': 'token ' + $cookies.get('Authorization'),
                         'Content-Type': 'application/json'
                     }
                 })
                     .success(function (data) {
-                        //console.log(data);
+                        console.log($cookies.get('Authorization'));
                         _identity = data;
                         _authenticated = true;
                         deferred.resolve(_identity);
@@ -115,17 +114,14 @@ angular.module('myApp', [
         function ($rootScope, $state, principal) {
             return {
                 authorize: function () {
-                    return principal.identity()
+                    return principal.identity(true)
                         .then(function () {
                             var isAuthenticated = principal.isAuthenticated();
                             console.log(isAuthenticated);
                             /*if ($rootScope.toState.data.roles && $rootScope.toState.data.roles.length > 0
                              && !principal.isInAnyRole($rootScope.toState.data.roles)) {*/
                             if (isAuthenticated) {
-                                // user is signed in but not
-                                // authorized for desired state
-
-                                //$state.go($location.path());
+                                // TODO:role check
                             } else {
 
                                 $rootScope.returnToState = $rootScope.toState;
@@ -154,6 +150,13 @@ angular.module('myApp', [
         var game = {
             name: 'game',
             url: '/game/{gameId}',
+            resolve: {
+                authorize: ['authorization',
+                    function (authorization) {
+                        return authorization.authorize();
+                    }
+                ]
+            },
             templateUrl: 'game/game.html',
             controller: 'GameCtrl'
         };
@@ -203,6 +206,13 @@ angular.module('myApp', [
         var person = {
             name: 'person',
             url: '/person/{personId}',
+            resolve: {
+                authorize: ['authorization',
+                    function (authorization) {
+                        return authorization.authorize();
+                    }
+                ]
+            },
             templateUrl: 'person/person.html',
             controller: 'PersonCtrl'
         };

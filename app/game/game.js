@@ -3,10 +3,11 @@
 angular.module('myApp.game', [
     'myApp.home',
     'ui.router',
+    'ngCookies',
     'angular-input-stars'
 ])
 
-    .controller('GameCtrl', ['$scope', '$state', '$stateParams', '$http', function ($scope, $state, $stateParams, $http) {
+    .controller('GameCtrl', ['$scope', '$state', '$stateParams', '$http', '$cookies', function ($scope, $state, $stateParams, $http, $cookies) {
         $scope.range = function (min, max, step) {
             step = step || 1;
             var input = [];
@@ -29,12 +30,11 @@ angular.module('myApp.game', [
          'image': 'http://vignette2.wikia.nocookie.net/wiedzmin/images/5/5d/Wiedzmin.jpg/revision/latest?cb=20130430183556'
          };
          */
-
+        $scope.sampleGame = undefined;
         $scope.getGame = function () {
-            console.log($stateParams.gameId);
             $http.get('http://127.0.0.1:8000/games/' + $stateParams.gameId, {
                 headers: {
-                    'Authorization': 'token a6047d9688d4505babebac76e116961ba56ff3eb',//'token ' + $cookies.get('Authorization'),
+                    'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'
                 }
             })
@@ -44,7 +44,8 @@ angular.module('myApp.game', [
                     $scope.sampleGame = data;
                 })
                 .error(function () {
-                    $scope.sampleGame = [];
+                    alert("Nie ma takiej gry");
+                    $state.go('games');
                 });
         };
 

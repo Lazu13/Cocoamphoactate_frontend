@@ -30,8 +30,9 @@ angular.module('myApp.game', [
          'image': 'http://vignette2.wikia.nocookie.net/wiedzmin/images/5/5d/Wiedzmin.jpg/revision/latest?cb=20130430183556'
          };
          */
-        $scope.sampleGame = undefined;
+
         $scope.getGame = function () {
+            //console.log($stateParams.gameId);
             $http.get('http://127.0.0.1:8000/games/' + $stateParams.gameId, {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),

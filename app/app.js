@@ -8,6 +8,7 @@ angular.module('myApp', [
     'myApp.home',
     'myApp.register',
     'myApp.login',
+    'myApp.logout',
     'myApp.games',
     'myApp.game',
     'myApp.users',
@@ -21,7 +22,8 @@ angular.module('myApp', [
 
 
         var _identity = undefined,
-            _authenticated = false
+            _authenticated = false,
+            _cookie = $cookies.get('Authorization');
 
         return {
 
@@ -30,7 +32,7 @@ angular.module('myApp', [
             },
 
             isAuthenticated: function () {
-                return _authenticated;
+                return _authenticated && _cookie;
             },
 
             isInRole: function (role) {
@@ -58,8 +60,9 @@ angular.module('myApp', [
             identity: function (force) {
                 var deferred = $q.defer();
 
-                if (force === true)
+                if (force === true) {
                     _identity = undefined;
+                }
 
                 if (angular.isDefined(_identity)) {
                     deferred.resolve(_identity);
@@ -67,7 +70,7 @@ angular.module('myApp', [
                     return deferred.promise;
                 }
 
-                // TODO: async request
+                // TODO: async
                 /*
                  var identiter = $resource('http://yourdomain.com:8000/user', {}, {
                  gett: {
@@ -93,7 +96,7 @@ angular.module('myApp', [
                     }
                 })
                     .success(function (data) {
-                        console.log($cookies.get('Authorization'));
+                        console.log(_cookie);
                         _identity = data;
                         _authenticated = true;
                         deferred.resolve(_identity);
@@ -203,6 +206,18 @@ angular.module('myApp', [
             controller: 'LoginCtrl'
         };
 
+        var logout = {
+            name: 'logout',
+            url: '/logout',
+            onEnter: function ($cookies, $state) {
+                $cookies.remove('Authorization');
+                alert("Wylogowane pomyślnie");
+                $state.go('home');
+            },
+            controller: 'LogoutCtrl'
+        };
+
+
         var person = {
             name: 'person',
             url: '/person/{personId}',
@@ -225,10 +240,17 @@ angular.module('myApp', [
         $stateProvider.state(users);
 
         $stateProvider.state(register);
-        $stateProvider.state(login);
         $stateProvider.state(person);
 
+        $stateProvider.state(login);
+        $stateProvider.state(logout);
+    }
+    ])
+
+    .controller('MyAppCtrl', ['$scope', 'principal' , function ($scope, principal) {
+        $scope.principal = principal;
     }]);
+
 /*
     .run(['$rootScope', '$state', '$stateParams',
         'authorization', 'principal',

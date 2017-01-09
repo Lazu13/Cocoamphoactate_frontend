@@ -6,13 +6,14 @@
 angular.module('myApp.typeahead', [
     'ui.router',
     'ngRoute',
+    'ngCookies',
     'myApp',
     'myApp.person',
     'ngAnimate',
     'ui.bootstrap'
 ])
 
-    .controller('TypeaheadCtrl', [ '$scope', '$state', function ($scope, $state) {
+    .controller('TypeaheadCtrl', ['$scope', '$state', '$http', '$cookies', function ($scope, $state, $http, $cookies) {
 
         $scope.data = [
             {id: 0, name: 'Games', value: 'valueGames'},
@@ -21,8 +22,22 @@ angular.module('myApp.typeahead', [
 
         $scope.selection = $scope.data[0];
 
+        $scope.initValue = function () {
+            $http.get('http://127.0.0.1:8000/games', {
+                headers: {
+                    'Authorization': 'token ' + $cookies.get('Authorization'),
+                    'Content-Type': 'application/json'
+                }
+            })
+                .success(function (data) {
+                    $scope.games = data;
+                })
+                .error(function () {
+                    $scope.games = [];
+                });
+        };
 
-        $scope.getValue = function(val) {
+        $scope.getValue = function (val) {
             return $scope.games.map(function (item) {
                 $scope.selectedGame = item;
                 return item;
@@ -35,7 +50,7 @@ angular.module('myApp.typeahead', [
 
         var sampleGame =
             {
-                'id' : 3,
+                'id': 3,
                 'name': 'Wiedzmin 3: dziki gon',
                 'category': 'RPG',
                 'rating': 3,
@@ -47,7 +62,7 @@ angular.module('myApp.typeahead', [
 
         var sampleGame1 =
             {
-                'id' : 1,
+                'id': 1,
                 'name': 'Fifa17',
                 'category': 'Sport',
                 'rating': 4,
@@ -59,7 +74,7 @@ angular.module('myApp.typeahead', [
 
         var sampleGame2 =
             {
-                'id' : 2,
+                'id': 2,
                 'name': 'Uncharted 4: Kres Złodzieja',
                 'category': 'Action',
                 'rating': 5,
@@ -69,6 +84,7 @@ angular.module('myApp.typeahead', [
                 'image': 'http://planetagracza.pl/wp-content/uploads/2015/12/Uncharted-47-800x445.jpg'
             };
 
-        $scope.games = [sampleGame, sampleGame1, sampleGame2];
+        //  $scope.games = [sampleGame, sampleGame1, sampleGame2];
 
-    }]);
+    }])
+;

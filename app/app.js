@@ -22,8 +22,7 @@ angular.module('myApp', [
 
 
         var _identity = undefined,
-            _authenticated = false,
-            _cookie = $cookies.get('Authorization');
+            _authenticated = false;
 
         return {
 
@@ -32,7 +31,7 @@ angular.module('myApp', [
             },
 
             isAuthenticated: function () {
-                return _authenticated && $cookies.get('Authorization');
+                return _authenticated || $cookies.get('Authorization');
             },
 
             isInRole: function (role) {
@@ -89,6 +88,7 @@ angular.module('myApp', [
                  $http.defaults.headers.common['Authorization'] = 'token e6ca92786ef60fdb5a1c110a76b4507cdca04c9e';
                  $http.defaults.headers.common['Accept'] = 'application/json;odata=verbose';*/
                 //console.log($cookies.get('Authorization'));
+                var self = this;
                 $http.get('http://127.0.0.1:8000/user', {
                     headers: {
                         'Authorization': 'token ' + $cookies.get('Authorization'),
@@ -97,13 +97,11 @@ angular.module('myApp', [
                 })
                     .success(function (data) {
                         console.log($cookies.get('Authorization'));
-                        _identity = data;
-                        _authenticated = true;
+                        self.authenticate(data);
                         deferred.resolve(_identity);
                     })
                     .error(function () {
-                        _identity = null;
-                        _authenticated = false;
+                        self.authenticate(null);
                         deferred.resolve(_identity);
                     });
 
@@ -117,7 +115,7 @@ angular.module('myApp', [
         function ($rootScope, $state, principal) {
             return {
                 authorize: function () {
-                    return principal.identity(true)
+                    return principal.identity()
                         .then(function () {
                             var isAuthenticated = principal.isAuthenticated();
                             console.log(isAuthenticated);
@@ -125,12 +123,13 @@ angular.module('myApp', [
                              && !principal.isInAnyRole($rootScope.toState.data.roles)) {*/
                             if (isAuthenticated) {
                                 // TODO:role check
+                                console.log("AUTHORIZATION isAuthenticated = true");
                             } else {
-
+                                console.log("AUTHORIZATION isAuthenticated = false");
                                 $rootScope.returnToState = $rootScope.toState;
                                 $rootScope.returnToStateParams = $rootScope.toStateParams;
 
-                                $state.go('login');
+                                $state.go('login',{}, {reload: true});
                             }
                             //}
                         });
@@ -209,14 +208,17 @@ angular.module('myApp', [
         var logout = {
             name: 'logout',
             url: '/logout',
-            onEnter: function ($cookies, $state) {
+            onEnter: ['$cookies', '$state', function ($cookies, $state) {
                 $cookies.remove('Authorization');
                 alert("Wylogowane pomyślnie");
-                $state.go('home');
-            },
+                if ($state.transition) {
+                    $state.transition.finally(() => {
+                        $state.go('home', {})
+                });
+                }
+            }],
             controller: 'LogoutCtrl'
         };
-
 
         var person = {
             name: 'person',
@@ -247,7 +249,7 @@ angular.module('myApp', [
     }
     ])
 
-    .controller('MyAppCtrl', ['$scope', 'principal' , function ($scope, principal) {
+    .controller('MyAppCtrl', ['$scope', 'principal', function ($scope, principal) {
         $scope.principal = principal;
     }])
 
@@ -261,8 +263,9 @@ angular.module('myApp', [
                     $rootScope.toState = toState;
                     $rootScope.toStateParams = toStateParams;
 
-                    if (principal.isAuthenticated())
-                        authorization.authorize();
+                    //if (principal.isAuthenticated() === false)
+                      //  principal.identity();
+                        //authorization.authorize();
                 });
         }
     ]);

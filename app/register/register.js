@@ -33,8 +33,9 @@ angular.module('myApp.register', [
                     alert("Zarejestrowano pomyślnie");
                     $state.go('login');
                 })
-                .error(function () {
-                    alert("Nie zalogowano");
+                .error(function (data) {
+                    console.log(data);
+                    alert("Nie zarejestrowana \n błąd: " + data.key );
                 });
         };
 

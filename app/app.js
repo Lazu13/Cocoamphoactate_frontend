@@ -96,7 +96,7 @@ angular.module('myApp', [
                     }
                 })
                     .success(function (data) {
-                        console.log($cookies.get('Authorization'));
+                        console.log("Jestem tutaj:" + $cookies.get('Authorization'));
                         self.authenticate(data);
                         deferred.resolve(_identity);
                     })
@@ -132,6 +132,9 @@ angular.module('myApp', [
                                 $state.go('login',{}, {reload: true});
                             }
                             //}
+                        },function () {
+                            console.log("Zle logowanie");
+                            $state.go('login',{}, {reload: true});
                         });
                 }
             };
@@ -212,8 +215,8 @@ angular.module('myApp', [
                 $cookies.remove('Authorization');
                 alert("Wylogowane pomyślnie");
                 if ($state.transition) {
-                    $state.transition.finally(() => {
-                        $state.go('home', {})
+                    $state.transition.finally(function (){
+                        $state.go('home', {});
                 });
                 }
             }],

@@ -1,10 +1,12 @@
 'use strict';
 
 angular.module('myApp.home', [
-    'myApp'
+    'myApp',
+    'ui.router',
+    'ngCookies'
 ])
 
-    .controller('HomeCtrl', function ($scope) {
+    .controller('HomeCtrl', ['$scope', '$http', '$state', '$cookies', function ($scope, $http, $state, $cookies) {
         $scope.range = function (min, max, step) {
             step = step || 1;
             var input = [];
@@ -16,7 +18,7 @@ angular.module('myApp.home', [
 
         var sampleGame =
             {
-                'id' : 1 ,
+                'id': 1,
                 'name': 'Wiedzmin 3: dziki gon',
                 'category': 'RPG',
                 'rating': 3,
@@ -25,7 +27,7 @@ angular.module('myApp.home', [
 
         var sampleGame1 =
             {
-                'id' : 2 ,
+                'id': 2,
                 'name': 'Fifa17',
                 'category': 'Sport',
                 'rating': 4,
@@ -34,14 +36,45 @@ angular.module('myApp.home', [
 
         var sampleGame2 =
             {
-                'id' : 3 ,
+                'id': 3,
                 'name': 'Uncharted 4: Kres Złodzieja',
                 'category': 'Action',
                 'rating': 5,
                 'image': 'http://planetagracza.pl/wp-content/uploads/2015/12/Uncharted-47-800x445.jpg'
             };
 
-        $scope.games = [sampleGame, sampleGame1, sampleGame2];
+        $scope.topGames = function () {
+            $http.get('http://127.0.0.1:8000/users/recommend/mostPopular', {
+                headers: {
+                    'Authorization': 'token ' + $cookies.get('Authorization'),
+                    'Content-Type': 'application/json'
+                }
+            })
+                .success(function (data) {
+                    $scope.games = [];
+                    for (var item in data) {
+                        $http.get('http://127.0.0.1:8000/games/' + item, {
+                            headers: {
+                                'Authorization': 'token ' + $cookies.get('Authorization'),
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                            .success(function (data1) {
+                                data1.rating = data[item];
+                                console.log(data1);
+                                $scope.games.push(data1);
+                            })
+                            .error(function () {
+                                $scope.games = [];
+                                alert("Something went wrong");
+                            });
+                    }
+                })
+                .error(function () {
+                    $scope.games = [];
+                });
+        };
+
         $scope.games_last_month = [sampleGame1, sampleGame, sampleGame2];
 
-    });
+    }]);

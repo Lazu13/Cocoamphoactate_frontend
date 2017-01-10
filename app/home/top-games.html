@@ -7,7 +7,7 @@
         <div class="carousel slide hidden-xs" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="item active">
-                    <div class="row" ng-controller="HomeCtrl">
+                    <div class="row" ng-controller="HomeCtrl" ng-init="topGames()">
                         <div class="col-md-4" ng-repeat="sampleGame in games">
                             <div class="col-item">
                                 <div ng-include="'home/top-game.html'"></div>

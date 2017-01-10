@@ -32,7 +32,7 @@ angular.module('myApp', [
             },
 
             isAuthenticated: function () {
-                return _authenticated && _cookie;
+                return _authenticated && $cookies.get('Authorization');
             },
 
             isInRole: function (role) {
@@ -96,7 +96,7 @@ angular.module('myApp', [
                     }
                 })
                     .success(function (data) {
-                        console.log(_cookie);
+                        console.log($cookies.get('Authorization'));
                         _identity = data;
                         _authenticated = true;
                         deferred.resolve(_identity);
@@ -249,9 +249,9 @@ angular.module('myApp', [
 
     .controller('MyAppCtrl', ['$scope', 'principal' , function ($scope, principal) {
         $scope.principal = principal;
-    }]);
+    }])
 
-/*
+
     .run(['$rootScope', '$state', '$stateParams',
         'authorization', 'principal',
         function ($rootScope, $state, $stateParams,
@@ -261,7 +261,7 @@ angular.module('myApp', [
                     $rootScope.toState = toState;
                     $rootScope.toStateParams = toStateParams;
 
-                    if (principal.isIdentityResolved())
+                    if (principal.isAuthenticated())
                         authorization.authorize();
                 });
         }
@@ -269,6 +269,4 @@ angular.module('myApp', [
 
 
 
-
-*/
 

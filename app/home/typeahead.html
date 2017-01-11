@@ -1,7 +1,5 @@
-<link href="home/top-games.css" rel="stylesheet">
-
-<div ng-app=" myApp.typeahead" ng-controller="TypeaheadCtrl" ng-init="initValue()">
-    <input type="text" ng-model="typeaheadSelected" typeahead-on-select="goOn($item)"
-           uib-typeahead="value as value.title for value in getValue($viewValue) | filter:$viewValue | limitTo:5"
+<div ng-app="myApp.typeahead" ng-controller="TypeaheadCtrl">
+    <input type="text" ng-model="asyncSelected" typeahead-on-select="goOn($item)"
+           uib-typeahead="value as value.title for value in getValues($viewValue)"
            typeahead-min-length="3" typeahead-wait-ms="500">
 </div>

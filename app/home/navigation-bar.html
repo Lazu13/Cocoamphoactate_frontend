@@ -20,16 +20,17 @@
             <li>
                 <a>
                     <div ng-app="myApp.typeahead" ng-controller="TypeaheadCtrl">
-                        <select name="selected" ng-model="selection" ng-init="selection='valueGames'"
-                                ng-options="selection.value as selection.name for selection in data">
+                        <select ng-options="selection as selection.name for selection in data"
+                                ng-model="selectedValue" ng-change="changeSelection()">
                             <option value="" selected disabled>Please select an option...</option>
                         </select>
                     </div>
                 </a>
             </li>
+
             <li>
                 <a class="toBeDisabled">
-                    <fieldset ng-disabled="selection">
+                    <fieldset ng-disabled="selectedValue">
                         <div ng-include="'home/typeahead.html'"></div>
                     </fieldset>
                 </a>

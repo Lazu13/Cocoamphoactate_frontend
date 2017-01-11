@@ -38,7 +38,7 @@ angular.module('myApp.register', [
                     var keys = [];
                     for (var key in data)
                         keys.push(key);
-                    alert("Nie zarejestrowana \nbłąd z: " + keys);
+                    alert("Nie zarejestrowana \nbłąd z: " + keys + " - " + data[key]);
                 });
         };
 

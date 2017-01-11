@@ -13,78 +13,65 @@ angular.module('myApp.typeahead', [
     'ui.bootstrap'
 ])
 
-    .controller('TypeaheadCtrl', ['$scope', '$state', '$http', '$cookies', function ($scope, $state, $http, $cookies) {
+    .controller('TypeaheadCtrl', ['$scope', '$rootScope', '$state', '$http', '$cookies', function ($scope, $rootScope, $state, $http, $cookies) {
 
         $scope.data = [
             {id: 0, name: 'Games', value: 'valueGames'},
             {id: 1, name: 'Users', value: 'usersGames'}
         ];
 
-        $scope.selection = $scope.data[0];
+        $scope.selectedValue = '';
+        $scope.selection = '';
 
-        $scope.initValue = function () {
-            $http.get('http://127.0.0.1:8000/games', {
+        $scope.changeSelection = function () {
+            $rootScope.selection = $scope.selectedValue;
+        };
+
+        $scope.getValues = function (val) {
+            var dataToSend = {
+                'substring': val
+            };
+
+            var config = {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'
                 }
-            })
-                .success(function (data) {
-                    $scope.games = data;
-                })
-                .error(function () {
-                    $scope.games = [];
-                });
-        };
+            };
 
-        $scope.getValue = function (val) {
-            return $scope.games.map(function (item) {
-                $scope.selectedGame = item;
-                return item;
-            })
+            if ($rootScope.selection.id == $scope.data[1].id) {
+                return $http.post('http://127.0.0.1:8000/users/users/search',
+                    dataToSend,
+                    config
+                )
+                    .then(function (response) {
+                        return response.data.map(function (item) {
+                            item.title = item.username;
+                            return item;
+                        });
+                    });
+            }
+            else {
+                return $http.post('http://127.0.0.1:8000/users/games/search',
+                    dataToSend,
+                    config
+                )
+                    .then(function (response) {
+                        return response.data.map(function (item) {
+                            return item;
+                        });
+                    });
+            }
         };
 
         $scope.goOn = function ($item) {
-            $state.go('game', {"gameId": $item.id});
+            if ($rootScope.selection.id == $scope.data[1].id) {
+                $state.go('user', {"userId": $item.id});
+            }
+            else {
+                $state.go('game', {"gameId": $item.id});
+            }
         };
-
-        var sampleGame =
-            {
-                'id': 3,
-                'name': 'Wiedzmin 3: dziki gon',
-                'category': 'RPG',
-                'rating': 3,
-                'readNum': 100,
-                'readMoreText': "Read more",
-                'description': 'A witcher (or hexer) is someone who has undergone extensive training, ruthless mental and physical conditioning, and mysterious rituals (which take place at "witcher schools" such as Kaer Morhen) in preparation for becoming an itinerant monsterslayer for hire. Geralt, the central character in Andrzej Sapkowskis Witcher series and the subsequent games inspired by them, is said in the stories to be one of the greatest witchers; he is certainly legendary, but whether famous or infamous is more open to interpretation (and/or subject to gameplay, as the case may be).',
-                'image': 'http://vignette2.wikia.nocookie.net/wiedzmin/images/5/5d/Wiedzmin.jpg/revision/latest?cb=20130430183556'
-            };
-
-        var sampleGame1 =
-            {
-                'id': 1,
-                'name': 'Fifa17',
-                'category': 'Sport',
-                'rating': 4,
-                'readNum': 100,
-                'readMoreText': "Read more",
-                'description': 'A witcher (or hexer) is someone who has undergone extensive training, ruthless mental and physical conditioning, and mysterious rituals (which take place at "witcher schools" such as Kaer Morhen) in preparation for becoming an itinerant monsterslayer for hire. Geralt, the central character in Andrzej Sapkowskis Witcher series and the subsequent games inspired by them, is said in the stories to be one of the greatest witchers; he is certainly legendary, but whether famous or infamous is more open to interpretation (and/or subject to gameplay, as the case may be).',
-                'image': 'https://media.easports.com/content/www-easports/pl_PL/fifa/aktualnosci/2016/fifa-17-release-date/_jcr_content/headerImages/image.img.jpg'
-            };
-
-        var sampleGame2 =
-            {
-                'id': 2,
-                'name': 'Uncharted 4: Kres Złodzieja',
-                'category': 'Action',
-                'rating': 5,
-                'readNum': 100,
-                'readMoreText': "Read more",
-                'description': 'A witcher (or hexer) is someone who has undergone extensive training, ruthless mental and physical conditioning, and mysterious rituals (which take place at "witcher schools" such as Kaer Morhen) in preparation for becoming an itinerant monsterslayer for hire. Geralt, the central character in Andrzej Sapkowskis Witcher series and the subsequent games inspired by them, is said in the stories to be one of the greatest witchers; he is certainly legendary, but whether famous or infamous is more open to interpretation (and/or subject to gameplay, as the case may be).',
-                'image': 'http://planetagracza.pl/wp-content/uploads/2015/12/Uncharted-47-800x445.jpg'
-            };
-
-        //  $scope.games = [sampleGame, sampleGame1, sampleGame2];
 
     }])
 ;

@@ -7,42 +7,38 @@ angular.module('myApp.users', [
 ])
 
 
-    .controller('UsersCtrl', function ($scope, $http) {
-
-        /*
-         $scope.users = [
-         {
-         "id": 1,
-         "user_one": 3,
-         "name1": "tmp",
-         "email1": "tomasz@tomasz.tomasz",
-         "user_two": 4,
-         "name2": "tmp2",
-         "email2": "tomasz2@tomasz.tomasz"
-         },
-         {
-         "id": 2,
-         "user_one": 3,
-         "name1": "tmp",
-         "email1": "tomasz@tomasz.tomasz",
-         "user_two": 2,
-         "name2": "tmp3",
-         "email2": "tomasz3@tomasz.tomasz"
-         }
-         ];
-         */
+    .controller('UsersCtrl', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
 
         $scope.getUsers = function () {
             $http.get('http://127.0.0.1:8000/friends', {
                 headers: {
-                    'Authorization': 'token a6047d9688d4505babebac76e116961ba56ff3eb',//'token ' + $cookies.get('Authorization'),
+                    'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'
                 }
             })
                 .success(function (data) {
                     data.forEach(function (item) {
-                        item.name1 = item.user_one;
-                        item.name2 = item.user_two;
+                        item.id1 = item.user_one;
+                        $http.get('http://127.0.0.1:8000/users/' + item.id1, {
+                            headers: {
+                                'Authorization': 'token ' + $cookies.get('Authorization'),
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                            .success(function (response) {
+                                item.name1 = response.username
+                            });
+
+                        item.id2 = item.user_two;
+                        $http.get('http://127.0.0.1:8000/users/' + item.id2, {
+                            headers: {
+                                'Authorization': 'token ' + $cookies.get('Authorization'),
+                                'Content-Type': 'application/json'
+                            }
+                        })
+                            .success(function (response) {
+                                item.name2 = response.username;
+                            });
                     });
                     $scope.users = data;
                 })
@@ -51,4 +47,4 @@ angular.module('myApp.users', [
                 });
         };
 
-    });
+    }]);

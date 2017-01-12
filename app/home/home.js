@@ -66,7 +66,6 @@ angular.module('myApp.home', [
                             })
                             .error(function () {
                                 $scope.games = [];
-                                alert("Something went wrong");
                             });
                     }
                 })

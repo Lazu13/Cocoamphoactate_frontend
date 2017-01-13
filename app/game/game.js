@@ -156,5 +156,4 @@ angular.module('myApp.game', [
                 alert('Comment was not added');
             }
         };
-
     }]);

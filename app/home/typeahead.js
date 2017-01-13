@@ -39,6 +39,9 @@ angular.module('myApp.typeahead', [
                 }
             };
 
+            if ($rootScope.selection== undefined)
+                return;
+
             if ($rootScope.selection.id == $scope.data[1].id) {
                 return $http.post('http://127.0.0.1:8000/users/users/search',
                     dataToSend,
@@ -51,7 +54,7 @@ angular.module('myApp.typeahead', [
                         });
                     });
             }
-            else {
+            else if ($rootScope.selection.id == $scope.data[0].id) {
                 return $http.post('http://127.0.0.1:8000/users/games/search',
                     dataToSend,
                     config
@@ -68,10 +71,8 @@ angular.module('myApp.typeahead', [
             if ($rootScope.selection.id == $scope.data[1].id) {
                 $state.go('user', {"userId": $item.id});
             }
-            else {
+            else if ($rootScope.selection.id == $scope.data[0].id) {
                 $state.go('game', {"gameId": $item.id});
             }
         };
-
-    }])
-;
+    }]);

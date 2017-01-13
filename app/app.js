@@ -249,7 +249,6 @@ angular.module('myApp', [
         $rootScope.principal = principal;
     }])
 
-
     .run(['$rootScope', '$state', '$stateParams',
         'authorization', 'principal',
         function ($rootScope, $state, $stateParams,
@@ -264,7 +263,3 @@ angular.module('myApp', [
                 });
         }
     ]);
-
-
-
-

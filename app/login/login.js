@@ -28,15 +28,15 @@ angular.module('myApp.login', [
             )
                 .success(function (data) {
                     $cookies.put('Authorization', data.token);
-                    alert("Zalogowano pomyślnie");
+                    alert("Logged in");
                     if ($rootScope.returnToState != undefined)
                         $state.go($rootScope.returnToState, $rootScope.returnToStateParams, {reload: true});
                     else
                         $state.go('home', {});
                 })
-                .error(function () {
+                .error(function (err) {
                     $cookies.remove('Authorization');
-                    alert("Nie zalogowano");
+                    alert("Not logged in: " + err);
                 });
         }
 

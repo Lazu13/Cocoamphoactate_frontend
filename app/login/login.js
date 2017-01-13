@@ -8,7 +8,7 @@ angular.module('myApp.login', [
     'myApp.register'
 ])
 
-    .controller('LoginCtrl', function ($scope, $state, $http, $cookies) {
+    .controller('LoginCtrl', function ($scope, $rootScope, $state, $http, $cookies) {
 
         $scope.goto = function () {
             var dataToSend = {
@@ -28,9 +28,11 @@ angular.module('myApp.login', [
             )
                 .success(function (data) {
                     $cookies.put('Authorization', data.token);
-                    //console.log($cookies.get('Authorization'));
                     alert("Zalogowano pomyślnie");
-                    $state.go('games');
+                    if ($rootScope.returnToState != undefined)
+                        $state.go($rootScope.returnToState, $rootScope.returnToStateParams, {reload: true});
+                    else
+                        $state.go('home', {});
                 })
                 .error(function () {
                     $cookies.remove('Authorization');

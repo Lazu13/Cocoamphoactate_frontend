@@ -129,12 +129,12 @@ angular.module('myApp', [
                                 $rootScope.returnToState = $rootScope.toState;
                                 $rootScope.returnToStateParams = $rootScope.toStateParams;
 
-                                $state.go('login',{}, {reload: true});
+                                $state.go('login', {}, {reload: true});
                             }
                             //}
-                        },function () {
+                        }, function () {
                             console.log("Zle logowanie");
-                            $state.go('login',{}, {reload: true});
+                            $state.go('login', {}, {reload: true});
                         });
                 }
             };
@@ -169,13 +169,6 @@ angular.module('myApp', [
         var games = {
             name: 'games',
             url: '/games',
-            resolve: {
-                authorize: ['authorization',
-                    function (authorization) {
-                        return authorization.authorize();
-                    }
-                ]
-            },
             templateUrl: 'games/games.html',
             controller: 'GamesCtrl'
         };
@@ -215,9 +208,9 @@ angular.module('myApp', [
                 $cookies.remove('Authorization');
                 alert("Wylogowane pomyślnie");
                 if ($state.transition) {
-                    $state.transition.finally(function (){
+                    $state.transition.finally(function () {
                         $state.go('home', {});
-                });
+                    });
                 }
             }],
             controller: 'LogoutCtrl'
@@ -261,14 +254,13 @@ angular.module('myApp', [
         'authorization', 'principal',
         function ($rootScope, $state, $stateParams,
                   authorization, principal) {
-            $rootScope.$on('$stateChangeSuccess',
+            $rootScope.$on('$stateChangeStart',
                 function (event, toState, toStateParams) {
                     $rootScope.toState = toState;
                     $rootScope.toStateParams = toStateParams;
 
-                    //if (principal.isAuthenticated() === false)
-                      //  principal.identity();
-                        //authorization.authorize();
+                    if (principal.isAuthenticated() === false)
+                        authorization.authorize();
                 });
         }
     ]);

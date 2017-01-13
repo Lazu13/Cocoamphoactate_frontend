@@ -1,12 +1,12 @@
 <div class="photo">
-    <img ng-src="{{sampleGame.image}}" class="no-resize" width="350" height="260" alt="Can't display img"/>
+    <img ng-src="{{sampleGame.data.image}}" class="no-resize" width="350" height="260" alt="Can't display img"/>
 </div>
 <div class="info">
     <div class="row">
         <div class="category col-md-12">
-            <h5>{{sampleGame.title}}</h5>
+            <h5>{{sampleGame.data.title}}</h5>
             <h5 class="category-text-color">
-                {{sampleGame.platform}}</h5>
+                {{sampleGame.data.platform}}</h5>
         </div>
         <div class="rating hidden-sm col-md-6">
             <a ng-repeat="rating in range(0,(sampleGame.rating - 1),1)">
@@ -22,8 +22,12 @@
             <i class="fa fa-heart"></i>
             <a ui-sref="games" class="hidden-sm">Add to favourites</a>
         </p>
-        <div ng-include="'components/more-details.html'"></div>
-    </div>
+        <div ng-controller="GameCtrl">
+            <p class="btn-details">
+                <i class="fa fa-list"></i>
+                <a ui-sref="game({ gameId: sampleGame.data.id })" class="hidden-sm">More details</a>
+            </p>
+        </div>    </div>
     <div class="clearfix">
     </div>
 </div>

@@ -252,8 +252,8 @@ angular.module('myApp', [
     }
     ])
 
-    .controller('MyAppCtrl', ['$scope', 'principal', function ($scope, principal) {
-        $scope.principal = principal;
+    .controller('MyAppCtrl', ['$scope', '$rootScope', 'principal', function ($scope, $rootScope, principal) {
+        $rootScope.principal = principal;
     }])
 
 

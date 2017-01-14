@@ -9,6 +9,8 @@ angular.module('myApp', [
     'myApp.register',
     'myApp.login',
     'myApp.logout',
+    'myApp.notification',
+    'myApp.user_profile',
     'myApp.games',
     'myApp.game',
     'myApp.users',
@@ -152,6 +154,7 @@ angular.module('myApp', [
             controller: 'HomeCtrl'
         };
 
+
         var game = {
             name: 'game',
             url: '/game/{gameId}',
@@ -173,6 +176,8 @@ angular.module('myApp', [
             controller: 'GamesCtrl'
         };
 
+
+
         var users = {
             name: 'users',
             url: '/users',
@@ -186,6 +191,66 @@ angular.module('myApp', [
             templateUrl: 'users/users.html',
             controller: 'UsersCtrl'
         };
+/*
+        var allUsers = {
+            name: 'allUsers',
+            url: '/users',
+            resolve: {
+                authorize: ['authorization',
+                    function (authorization) {
+                        return authorization.authorize();
+                    }
+                ]
+            },
+            templateUrl: 'users/users.html',
+            controller: 'UsersCtrl'
+        };
+*/
+
+        var user_profile = {
+            name: 'user_profile',
+            url: '/user_profile',
+            resolve: {
+                authorize: ['authorization',
+                    function (authorization) {
+                        return authorization.authorize();
+                    }
+                ]
+            },
+            templateUrl: 'user_profile/user_profile.html',
+            controller: 'UserProfileCtrl'
+        };
+
+        var person = {
+            name: 'person',
+            url: '/person/{personId}',
+            resolve: {
+                authorize: ['authorization',
+                    function (authorization) {
+                        return authorization.authorize();
+                    }
+                ]
+            },
+            templateUrl: 'person/person.html',
+            controller: 'PersonCtrl'
+        };
+
+
+
+        var notification = {
+            name: 'notification',
+            url: '/notifications/',
+            resolve: {
+                authorize: ['authorization',
+                    function (authorization) {
+                        return authorization.authorize();
+                    }
+                ]
+            },
+            templateUrl: 'notification/notification.html',
+            controller: 'NotificationCtrl'
+        };
+
 
         var register = {
             name: 'register',
@@ -216,19 +281,6 @@ angular.module('myApp', [
             controller: 'LogoutCtrl'
         };
 
-        var person = {
-            name: 'person',
-            url: '/person/{personId}',
-            resolve: {
-                authorize: ['authorization',
-                    function (authorization) {
-                        return authorization.authorize();
-                    }
-                ]
-            },
-            templateUrl: 'person/person.html',
-            controller: 'PersonCtrl'
-        };
 
         $stateProvider.state(home);
 
@@ -236,12 +288,14 @@ angular.module('myApp', [
         $stateProvider.state(game);
 
         $stateProvider.state(users);
-
-        $stateProvider.state(register);
+        //$stateProvider.state(allUsers);
         $stateProvider.state(person);
 
+        $stateProvider.state(register);
         $stateProvider.state(login);
         $stateProvider.state(logout);
+        $stateProvider.state(notification);
+        $stateProvider.state(user_profile);
     }
     ])
 

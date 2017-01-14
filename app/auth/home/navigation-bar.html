@@ -17,7 +17,8 @@
             <li>
                 <a>
                     <div ng-app="myApp.typeahead" ng-controller="TypeaheadCtrl">
-                        <select ng-options="selection as selection.name for selection in data" ng-init="selectedValue = data[0].id"
+                        <select ng-options="selection as selection.name for selection in data"
+                                ng-init="selectedValue = data[0].id"
                                 ng-model="selectedValue" ng-change="changeSelection()">
                             <option value="" ng-disabled="true">Option...</option>
                         </select>
@@ -31,12 +32,10 @@
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li>
-                <p id="confirmationP"></p>
-            </li>
-            <li><a id='register' ui-sref="register" ui-sref-active="active"><span
-                    class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-            <li></li>
+            <li><a id='notify' ui-sref="notification" ui-sref-active="active"><span
+                    class="glyphicon glyphicon-envelope"></span> Invites</a></li>
+            <li><a id='register' ui-sref="user_profile" ui-sref-active="active"><span
+                    class="glyphicon glyphicon-user"></span> Profile</a></li>
             <li><a id='logout' ui-sref="logout" ui-sref-active="active"><span
                     class="glyphicon glyphicon-log-out"></span>
                 Logout</a></li>

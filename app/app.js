@@ -3,6 +3,8 @@
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
     'ui.router',
+    'ngMaterial',
+    'ngAria',
     'ngResource',
     'ngCookies',
     'myApp.home',
@@ -20,7 +22,7 @@ angular.module('myApp', [
     'ui.validate'
 ])
 
-    .factory('principal', ['$q', '$http', '$cookies', function ($q, $http, $cookies) {
+    .factory('principal', ['$q', '$http', '$cookies',function ($q, $http, $cookies) {
 
 
         var _identity = undefined,
@@ -33,7 +35,7 @@ angular.module('myApp', [
             },
 
             isAuthenticated: function () {
-                return _authenticated || $cookies.get('Authorization');
+                return _authenticated && $cookies.get('Authorization');
             },
 
             isInRole: function (role) {

@@ -1,3 +1,7 @@
+html, body {
+    height:100%;
+}
+
 .list-group li {
     list-style: none;
 }

@@ -91,6 +91,7 @@ angular.module('myApp.game', [
         };
 
         $scope.prepareUser = function () {
+            $scope.starRating = 5;
             $http.get('http://127.0.0.1:8000/user', {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
@@ -147,8 +148,9 @@ angular.module('myApp.game', [
                             });
                     })
 
-                    .error(function () {
-                        alert('Neither comment nor grade was added');
+                    .error(function (response) {
+                        console.log(response);
+                        alert('Neither comment nor grade was added. Reason: ' + response.message);
                     });
             }
 

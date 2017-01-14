@@ -69,7 +69,7 @@ angular.module('myApp.typeahead', [
 
         $scope.goOn = function ($item) {
             if ($rootScope.selection.id == $scope.data[1].id) {
-                $state.go('user', {"userId": $item.id});
+                $state.go('person', {"personId": $item.id});
             }
             else if ($rootScope.selection.id == $scope.data[0].id) {
                 $state.go('game', {"gameId": $item.id});

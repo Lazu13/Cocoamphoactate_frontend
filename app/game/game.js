@@ -25,17 +25,11 @@ angular.module('myApp.game', [
                 }
             })
                 .success(function (data) {
-                    $http.get('http://127.0.0.1:8000/games/' + $stateParams.gameId, {
-                        headers: {
-                            'Authorization': 'token ' + $cookies.get('Authorization'),
-                            'Content-Type': 'application/json'
-                        }
-                    });
-                    data.rating = 4;
+                    data.score = Math.round(data.score);
                     $scope.sampleGame = data;
                 })
                 .error(function () {
-                    alert("Nie ma takiej gry");
+                    alert("There is not such a game in database");
                     $state.go('games');
                 });
         };
@@ -78,6 +72,7 @@ angular.module('myApp.game', [
                     for (item in data) {
                         getComment(data[item].user, $scope.reviews);
                     }
+                    console.log($scope.reviews);
                 })
 
                 .error(function () {
@@ -99,7 +94,6 @@ angular.module('myApp.game', [
                 }
             })
                 .success(function (data) {
-                    console.log(data.id);
                     $scope.userId = data.id;
                 })
                 .error(function (err) {
@@ -108,7 +102,6 @@ angular.module('myApp.game', [
         };
 
         $scope.confirmation = function () {
-            console.log($scope.commentRating);
             var r = confirm("Add comment?");
             if (r == true) {
                 var reviewToAdd = {
@@ -138,8 +131,9 @@ angular.module('myApp.game', [
                             scoreToAdd,
                             config
                         )
-                            .error(function () {
-                                alert('Grade was not added');
+                            .error(function (response) {
+                                alert('Grade was not added. Reason: ' + response.message);
+                                $state.go($state.current, {}, {reload: true});
                             })
 
                             .then(function () {
@@ -149,13 +143,14 @@ angular.module('myApp.game', [
                     })
 
                     .error(function (response) {
-                        console.log(response);
                         alert('Neither comment nor grade was added. Reason: ' + response.message);
+                        $state.go($state.current, {}, {reload: true});
                     });
             }
 
             else {
                 alert('Comment was not added');
+                $state.go($state.current, {}, {reload: true});
             }
         };
     }]);

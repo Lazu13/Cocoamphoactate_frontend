@@ -23,9 +23,9 @@ angular.module('myApp.games', [
             })
                 .success(function (data) {
                     data.forEach(function (item) {
-                        item.readNum = 10;
+                        item.readNum = 25;
                         item.readMoreText = "Read more";
-                        item.rating = Math.floor((Math.random() * 5) + 1);
+                        item.score = Math.round(item.score);
                     });
                     $scope.games = data;
                 })
@@ -36,12 +36,12 @@ angular.module('myApp.games', [
 
         $scope.readMore = function (exsampleGame) {
             if (exsampleGame.readMoreText == "Read more") {
-                exsampleGame.readNum = 50;
+                exsampleGame.readNum = 100;
                 exsampleGame.readMoreText = "Read less";
                 jQuery(".readMoreTextDots").html("")
             }
             else {
-                exsampleGame.readNum = 10;
+                exsampleGame.readNum = 25;
                 exsampleGame.readMoreText = "Read more";
                 jQuery(".readMoreTextDots").html('...')
             }

@@ -35,7 +35,7 @@ angular.module('myApp', [
             },
 
             isAuthenticated: function () {
-                return _authenticated && $cookies.get('Authorization');
+                return _authenticated || $cookies.get('Authorization');
             },
 
             isInRole: function (role) {

@@ -33,10 +33,10 @@
                         <h4 class="category-text-color">
                             {{sampleGame.platform}}
                         </h4>
-                        <a ng-repeat="rating in range(0,(sampleGame.rating - 1),1)">
+                        <a ng-repeat="rating in range(0,(sampleGame.score - 1),1)">
                             <i class="category-text-color fa fa-star"></i>
                         </a>
-                        <a ng-repeat="rating in range(0, (5 - sampleGame.rating - 1),1)">
+                        <a ng-repeat="rating in range(0, (5 - sampleGame.score- 1),1)">
                             <i class="fa fa-star-o"></i>
                         </a>
                         <h6>{{sampleGame.description | limitTo:sampleGame.readNum}}

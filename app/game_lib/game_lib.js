@@ -1,11 +1,11 @@
 'use strict';
 
-angular.module('myApp.favs', [
+angular.module('myApp.game_lib', [
     'myApp',
     'ngCookies'
 ])
 
-    .controller('FavsCtrl', function ($scope, $http, $cookies, $state) {
+    .controller('GameLibCtrl', function ($scope, $http, $cookies, $state) {
         $scope.range = function (min, max, step) {
             step = step || 1;
             var input = [];
@@ -16,7 +16,7 @@ angular.module('myApp.favs', [
         };
 
         $scope.getGames = function () {
-            $http.get('http://127.0.0.1:8000/favs', {
+            $http.get('http://127.0.0.1:8000/gamelib', {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'

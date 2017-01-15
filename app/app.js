@@ -17,6 +17,7 @@ angular.module('myApp', [
     'myApp.game',
     'myApp.users',
     'myApp.favs',
+    'myApp.game_lib',
     'myApp.friends',
     'myApp.person',
     'myApp.typeahead',
@@ -253,6 +254,20 @@ angular.module('myApp', [
             controller: 'FavsCtrl'
         };
 
+        var game_lib = {
+            name: 'game_lib',
+            url: '/game_lib/{gameLibId}',
+            resolve: {
+                authorize: ['authorization',
+                    function (authorization) {
+                        return authorization.authorize();
+                    }
+                ]
+            },
+            templateUrl: 'game_lib/game_lib.html',
+            controller: 'GameLibCtrl'
+        };
+
         var friends = {
             name: 'friends',
             url: '/friends',
@@ -322,6 +337,7 @@ angular.module('myApp', [
         //$stateProvider.state(allUsers);
         $stateProvider.state(person);
         $stateProvider.state(favs);
+        $stateProvider.state(game_lib);
 
         $stateProvider.state(register);
         $stateProvider.state(login);

@@ -1,5 +1,5 @@
 <div class="photo">
-    <img ng-src="{{sampleGame.data.image}}" class="no-resize" width="350" height="260" alt="Can't display img"/>
+    <img ng-src="{{sampleGame.image}}" class="no-resize" width="350" height="260" alt="Can't display img"/>
 </div>
 <div class="info">
     <div class="row">
@@ -19,8 +19,8 @@
     </div>
     <div class="separator clear-left">
         <p class="btn-add">
-            <i class="fa fa-heart"></i>
-            <a ui-sref="games" class="hidden-sm">Add to favourites</a>
+            <i class="glyphicon glyphicon-star"></i>
+            <a ui-sref="game_lib({gameLibId: sampleGame.id})" class="hidden-sm">Add to game library</a>
         </p>
         <div ng-include="'components/more-details.html'"></div>
     </div>

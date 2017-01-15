@@ -1,7 +1,7 @@
 <link href="games/games.css" rel="stylesheet">
 <link href="home/top-games.css" rel="stylesheet">
 
-<div ng-app="myApp.favs" class="games-container container" ng-controller="FavsCtrl" ng-init="getGames()">
+<div ng-app="myApp.game_lib" class="games-container container" ng-controller="GameLibCtrl" ng-init="getGames()">
     <h3><kbd>Games library</kbd></h3><br/>
     <div class="row" ng-repeat="sampleGame in games">
         <div class="panel panel-default">
@@ -23,7 +23,8 @@
 
                         <div id="bottomOfGame" class="separator clear-left">
                             <p class="btn-add">
-                                <a class="hidden-sm"></a>
+                                <i class="glyphicon glyphicon-heart"></i>
+                                <a ui-sref="game_lib({gameLibId: sampleGame.id})" class="hidden-sm">Add to favourites</a>
                             </p>
                             <p><div ng-include="'components/more-details.html'"></div></p>
                         </div>

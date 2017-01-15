@@ -75,7 +75,7 @@ angular.module('myApp.admin', [
                 config
             )
                 .success(function (response) {
-                    alert("You have deleted game.);
+                    alert("You have deleted game.");
                     $state.go($state.current, {}, {reload: true});
                 })
                 .error(function (response) {

@@ -16,6 +16,8 @@ angular.module('myApp', [
     'myApp.games',
     'myApp.game',
     'myApp.users',
+    'myApp.favs',
+    'myApp.friends',
     'myApp.person',
     'myApp.typeahead',
     'angular-input-stars',
@@ -237,7 +239,33 @@ angular.module('myApp', [
             controller: 'PersonCtrl'
         };
 
+        var favs = {
+            name: 'favs',
+            url: '/favs/{personId}',
+            resolve: {
+                authorize: ['authorization',
+                    function (authorization) {
+                        return authorization.authorize();
+                    }
+                ]
+            },
+            templateUrl: 'favs/favs.html',
+            controller: 'FavsCtrl'
+        };
 
+        var friends = {
+            name: 'friends',
+            url: '/friends',
+            resolve: {
+                authorize: ['authorization',
+                    function (authorization) {
+                        return authorization.authorize();
+                    }
+                ]
+            },
+            templateUrl: 'friends/friends.html',
+            controller: 'FriendsCtrl'
+        };
 
         var notification = {
             name: 'notification',
@@ -290,8 +318,10 @@ angular.module('myApp', [
         $stateProvider.state(game);
 
         $stateProvider.state(users);
+        $stateProvider.state(friends);
         //$stateProvider.state(allUsers);
         $stateProvider.state(person);
+        $stateProvider.state(favs);
 
         $stateProvider.state(register);
         $stateProvider.state(login);

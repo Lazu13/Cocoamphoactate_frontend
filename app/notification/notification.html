@@ -1,10 +1,10 @@
 <link href="games/games.css" rel="stylesheet">
 <link href="home/top-games.css" rel="stylesheet">
-<link href="notification/notification.css" rel="stylesheet">
 
-<div ng-app="myApp.games" class="games-container container" ng-controller="NotificationCtrl" ng-init="getNotifies(); getSentNotifies()">
+<div ng-app="myApp.games" class="games-container container" ng-controller="NotificationCtrl"
+     ng-init="getNotifies(); getSentNotifies()">
     <h3><kbd>Invites received</kbd></h3><br/>
-    <div class="row" ng-repeat="notification in notifications">
+    <div ng-repeat="notification in notifications">
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="col-sm-12">
@@ -15,14 +15,14 @@
                         <h4 class="category-text-color">{{notification.name || 'notDefined'}}</h4>
                     </div>
                     <div class="rating col-md-3">
-                            <h4><a ng-click="acceptInvitation(notification.id)" class="glyphicon glyphicon-ok"></a></h4>
+                        <h4><a ng-click="acceptInvitation(notification.id)" class="glyphicon glyphicon-ok"></a></h4>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <h3><kbd>Invites pending</kbd></h3><br/>
-    <div class="row" ng-repeat="notification in notificationsSent">
+    <div ng-repeat="notification in notificationsSent">
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="col-sm-12">

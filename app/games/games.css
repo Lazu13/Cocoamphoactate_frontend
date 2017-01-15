@@ -1,7 +1,3 @@
-html, body {
-    height:100%;
-}
-
 .list-group li {
     list-style: none;
 }
@@ -12,8 +8,8 @@ html, body {
 }
 
 .container.games-container {
-    padding: 0% 10%;
-}
+     padding: 0% 10%;
+ }
 
 .nopadding {
     padding: 0 !important;
@@ -50,4 +46,9 @@ p.btn-details {
 
 .panel-heading:hover {
     background-color: #F5F5DC;
+}
+
+.panel-borderless {
+    border: 0;
+    box-shadow: none;
 }

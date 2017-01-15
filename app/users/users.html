@@ -3,11 +3,8 @@
 
 <div ng-app="myApp.games" class="games-container container" ng-controller="UsersCtrl" ng-init="getUsers()">
     <h3><kbd>Friendship connections</kbd></h3><br/>
-    <div class="row" ng-repeat="sampleFriend in users">
+    <div ng-repeat="sampleFriend in users">
         <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Relationship</h3>
-            </div>
             <div class="panel-body">
                 <div class="col-sm-12">
                     <div class="category col-md-6">
@@ -23,5 +20,4 @@
             </div>
         </div>
     </div>
-</div>
 </div>

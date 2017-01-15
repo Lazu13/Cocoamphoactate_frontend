@@ -19,6 +19,6 @@
   },
   "scripts": {
     "postinstall": "bower cache clean && bower install",
-    "prestart": "npm install",
+    "prestart": "npm install"
   }
 }

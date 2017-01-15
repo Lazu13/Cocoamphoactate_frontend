@@ -8,6 +8,7 @@ angular.module('myApp', [
     'ngResource',
     'ngCookies',
     'myApp.home',
+    'myApp.admin',
     'myApp.register',
     'myApp.login',
     'myApp.logout',
@@ -25,7 +26,7 @@ angular.module('myApp', [
     'ui.validate'
 ])
 
-    .factory('principal', ['$q', '$http', '$cookies',function ($q, $http, $cookies) {
+    .factory('principal', ['$q', '$http', '$cookies', function ($q, $http, $cookies) {
 
 
         var _identity = undefined,
@@ -84,6 +85,10 @@ angular.module('myApp', [
                     }
                 })
                     .success(function (data) {
+                        if (data.is_superuser)
+                            data.roles = "admin";
+                        else
+                            data.roles = "user";
                         self.authenticate(data);
                         deferred.resolve(_identity);
                     })
@@ -104,24 +109,27 @@ angular.module('myApp', [
                 authorize: function () {
                     return principal.identity()
                         .then(function () {
-                            var isAuthenticated = principal.isAuthenticated();
-                            /*if ($rootScope.toState.data.roles && $rootScope.toState.data.roles.length > 0
-                             && !principal.isInAnyRole($rootScope.toState.data.roles)) {*/
-                            if (isAuthenticated) {
-                                // TODO:role check
-                                console.log("AUTHORIZATION isAuthenticated = true");
-                            } else {
-                                console.log("AUTHORIZATION isAuthenticated = false");
-                                $rootScope.returnToState = $rootScope.toState;
-                                $rootScope.returnToStateParams = $rootScope.toStateParams;
+                                var isAuthenticated = principal.isAuthenticated();
+                                if (isAuthenticated) {
+                                    if ($rootScope.toState.data.roles && $rootScope.toState.data.roles.length > 0
+                                        && !principal.isInAnyRole($rootScope.toState.data.roles)) {
+                                        alert("Access denied");
+                                        console.log("AUTHORIZATION isAuthenticated = true");
+                                        $state.go('home');
+                                    }
+                                }
+                                else {
+                                    console.log("AUTHORIZATION isAuthenticated = false");
+                                    $rootScope.returnToState = $rootScope.toState;
+                                    $rootScope.returnToStateParams = $rootScope.toStateParams;
 
+                                    $state.go('login', {}, {reload: true});
+                                }
+                            }, function () {
+                                console.log("Zle logowanie");
                                 $state.go('login', {}, {reload: true});
                             }
-                            //}
-                        }, function () {
-                            console.log("Zle logowanie");
-                            $state.go('login', {}, {reload: true});
-                        });
+                        );
                 }
             };
         }
@@ -142,6 +150,9 @@ angular.module('myApp', [
         var game = {
             name: 'game',
             url: '/game/{gameId}',
+            data: {
+                roles: []
+            },
             resolve: {
                 authorize: ['authorization',
                     function (authorization) {
@@ -161,10 +172,12 @@ angular.module('myApp', [
         };
 
 
-
         var users = {
             name: 'users',
             url: '/users',
+            data: {
+                roles: []
+            },
             resolve: {
                 authorize: ['authorization',
                     function (authorization) {
@@ -175,25 +188,13 @@ angular.module('myApp', [
             templateUrl: 'users/users.html',
             controller: 'UsersCtrl'
         };
-/*
-        var allUsers = {
-            name: 'allUsers',
-            url: '/users',
-            resolve: {
-                authorize: ['authorization',
-                    function (authorization) {
-                        return authorization.authorize();
-                    }
-                ]
-            },
-            templateUrl: 'users/users.html',
-            controller: 'UsersCtrl'
-        };
-*/
 
         var user_profile = {
             name: 'user_profile',
             url: '/user_profile',
+            data: {
+                roles: []
+            },
             resolve: {
                 authorize: ['authorization',
                     function (authorization) {
@@ -208,6 +209,9 @@ angular.module('myApp', [
         var person = {
             name: 'person',
             url: '/person/{personId}',
+            data: {
+                roles: []
+            },
             resolve: {
                 authorize: ['authorization',
                     function (authorization) {
@@ -222,6 +226,9 @@ angular.module('myApp', [
         var favs = {
             name: 'favs',
             url: '/favs',
+            data: {
+                roles: []
+            },
             resolve: {
                 authorize: ['authorization',
                     function (authorization) {
@@ -236,6 +243,9 @@ angular.module('myApp', [
         var game_lib = {
             name: 'game_lib',
             url: '/game_lib',
+            data: {
+                roles: []
+            },
             resolve: {
                 authorize: ['authorization',
                     function (authorization) {
@@ -250,6 +260,9 @@ angular.module('myApp', [
         var friends = {
             name: 'friends',
             url: '/friends',
+            data: {
+                roles: []
+            },
             resolve: {
                 authorize: ['authorization',
                     function (authorization) {
@@ -264,6 +277,9 @@ angular.module('myApp', [
         var notification = {
             name: 'notification',
             url: '/notifications/',
+            data: {
+                roles: []
+            },
             resolve: {
                 authorize: ['authorization',
                     function (authorization) {
@@ -305,8 +321,25 @@ angular.module('myApp', [
             controller: 'LogoutCtrl'
         };
 
+        var admin = {
+            name: 'admin',
+            url: '/admin',
+            data: {
+                roles: ["admin"]
+            },
+            resolve: {
+                authorize: ['authorization',
+                    function (authorization) {
+                        return authorization.authorize();
+                    }
+                ]
+            },
+            templateUrl: 'admin/admin.html',
+            controller: 'AdminCtrl'
+        };
 
         $stateProvider.state(home);
+        $stateProvider.state(admin);
 
         $stateProvider.state(games);
         $stateProvider.state(game);

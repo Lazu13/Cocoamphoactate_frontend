@@ -8,7 +8,7 @@ angular.module('myApp.login', [
     'myApp.register'
 ])
 
-    .controller('LoginCtrl', function ($scope, $rootScope, $state, $http, $cookies, authorization) {
+    .controller('LoginCtrl', function ($scope, $rootScope, $state, $http, $cookies) {
 
         $scope.goto = function () {
             var dataToSend = {
@@ -54,5 +54,4 @@ angular.module('myApp.login', [
                     alert("Not logged in: " + err);
                 });
         }
-
     });

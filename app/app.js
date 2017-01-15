@@ -1,6 +1,5 @@
 'use strict';
 
-// Declare app level module which depends on views, and components
 angular.module('myApp', [
     'ui.router',
     'ngResource',
@@ -26,7 +25,6 @@ angular.module('myApp', [
 
     .factory('principal', ['$q', '$http', '$cookies', function ($q, $http, $cookies) {
 
-
         var _identity = undefined,
             _authenticated = false;
 
@@ -41,20 +39,16 @@ angular.module('myApp', [
             },
 
             isInRole: function (role) {
-                console.log($cookies.get('Roles'));
-                console.log(role);
-                if (!_authenticated || !$cookies.get('Roles'))
+                if (!$cookies.get('Roles'))
                     return false;
 
                 return $cookies.get('Roles').indexOf(role) != -1;
             },
 
             isInAnyRole: function (roles) {
-                console.log(_authenticated);
-                if (!_authenticated || $cookies.get('Roles') == undefined) return false;
+                if ($cookies.get('Roles') == undefined) return false;
 
                 for (var i = 0; i < roles.length; i++) {
-                    console.log($cookies.get('Roles'));
                     if (this.isInRole(roles[i])) return true;
                 }
 
@@ -87,16 +81,10 @@ angular.module('myApp', [
                     }
                 })
                     .success(function (data) {
-                        console.log(data);
-                        /*if (data.is_superuser)
-                         data.roles = "admin";
-                         else
-                         data.roles = "user";*/
                         self.authenticate(data);
                         deferred.resolve(_identity);
                     })
-                    .error(function (response) {
-                        console.log(response);
+                    .error(function () {
                         self.authenticate(null);
                         deferred.resolve(_identity);
                     });
@@ -118,19 +106,17 @@ angular.module('myApp', [
                                     if ($rootScope.toState.data.roles && $rootScope.toState.data.roles.length > 0
                                         && !principal.isInAnyRole($rootScope.toState.data.roles)) {
                                         alert("Access denied");
-                                        console.log("AUTHORIZATION isAuthenticated = true");
                                         $state.go('home');
                                     }
                                 }
                                 else {
-                                    console.log("AUTHORIZATION isAuthenticated = false");
                                     $rootScope.returnToState = $rootScope.toState;
                                     $rootScope.returnToStateParams = $rootScope.toStateParams;
 
                                     $state.go('login', {}, {reload: true});
                                 }
                             }, function () {
-                                console.log("ERROR !");
+                                alert("ERROR !");
                                 $state.go('login', {}, {reload: true});
                             }
                         );
@@ -350,7 +336,6 @@ angular.module('myApp', [
 
         $stateProvider.state(users);
         $stateProvider.state(friends);
-        //$stateProvider.state(allUsers);
         $stateProvider.state(person);
         $stateProvider.state(favs);
         $stateProvider.state(game_lib);

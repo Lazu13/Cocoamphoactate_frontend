@@ -35,7 +35,6 @@ angular.module('myApp.login', [
                         }
                     })
                         .success(function (data) {
-                            console.log(data);
                             if (data.is_superuser)
                                 $cookies.put('Roles', "admin");
                             else

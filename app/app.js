@@ -41,6 +41,8 @@ angular.module('myApp', [
             },
 
             isInRole: function (role) {
+                console.log($cookies.get('Roles'));
+                console.log(role);
                 if (!_authenticated || !$cookies.get('Roles'))
                     return false;
 
@@ -48,9 +50,11 @@ angular.module('myApp', [
             },
 
             isInAnyRole: function (roles) {
-                if (!_authenticated || !$cookies.get('Roles')) return false;
+                console.log(_authenticated);
+                if (!_authenticated || $cookies.get('Roles') == undefined) return false;
 
                 for (var i = 0; i < roles.length; i++) {
+                    console.log($cookies.get('Roles'));
                     if (this.isInRole(roles[i])) return true;
                 }
 
@@ -91,7 +95,8 @@ angular.module('myApp', [
                         self.authenticate(data);
                         deferred.resolve(_identity);
                     })
-                    .error(function () {
+                    .error(function (response) {
+                        console.log(response);
                         self.authenticate(null);
                         deferred.resolve(_identity);
                     });
@@ -125,7 +130,7 @@ angular.module('myApp', [
                                     $state.go('login', {}, {reload: true});
                                 }
                             }, function () {
-                                console.log("Zle logowanie");
+                                console.log("ERROR !");
                                 $state.go('login', {}, {reload: true});
                             }
                         );
@@ -324,7 +329,7 @@ angular.module('myApp', [
             name: 'admin',
             url: '/admin',
             data: {
-                roles: ["admin"]
+                roles: ['admin']
             },
             resolve: {
                 authorize: ['authorization',

@@ -45,8 +45,10 @@ angular.module('myApp.home', [
                 }
             })
                 .success(function (data) {
-                    data.score = Math.round(data.score);
-                    $scope.games = data
+                    data.forEach(function (item) {
+                        item.score = Math.round(item.score);
+                    });
+                    $scope.games = data;
                 })
 
                 .error(function () {
@@ -62,8 +64,10 @@ angular.module('myApp.home', [
                 }
             })
                 .success(function (data) {
-                    data.score = Math.round(data.score);
-                    $scope.recGames = data
+                    data.forEach(function (item) {
+                        item.score = Math.round(item.score);
+                    });
+                    $scope.recGames = data;
                 })
 
                 .error(function () {
@@ -79,7 +83,9 @@ angular.module('myApp.home', [
                 }
             })
                 .success(function (data) {
-                    data.score = Math.round(data.score);
+                    data.forEach(function (item) {
+                        item.score = Math.round(item.score);
+                    });
                     $scope.recGamesFriends = data
                 })
 
@@ -109,7 +115,8 @@ angular.module('myApp.home', [
                     $state.go($state.current, {}, {reload: true});
                 })
                 .error(function (response) {
-                    alert("Error!: " + response);
+                    if (response.detail == 'Invalid token.')
+                        $state.go('login');
                 })
         };
 

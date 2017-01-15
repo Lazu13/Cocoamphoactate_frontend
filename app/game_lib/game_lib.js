@@ -50,6 +50,31 @@ angular.module('myApp.game_lib', [
                 });
         };
 
+        $scope.addToFavs = function (id) {
+            var config = {
+                headers: {
+                    'Authorization': 'token ' + $cookies.get('Authorization'),
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            var friendToAdd = {
+                "game": id
+            };
+
+            $http.post('http://127.0.0.1:8000/favs',
+                friendToAdd,
+                config
+            )
+                .success(function () {
+                    alert("You have added new game to your favourites");
+                    $state.go($state.current, {}, {reload: true});
+                })
+                .error(function (response) {
+                    alert("Error!: " + response);
+                })
+        };
+
         $scope.readMore = function (exsampleGame) {
             if (exsampleGame.readMoreText == "Read more") {
                 exsampleGame.readNum = 100;

@@ -76,25 +76,6 @@ angular.module('myApp', [
                     return deferred.promise;
                 }
 
-                // TODO: async
-                /*
-                 var identiter = $resource('http://yourdomain.com:8000/user', {}, {
-                 gett: {
-                 method: 'get',
-                 headers: {'authorization': 'token 85347a3bda370c2291c772815fd4a3ec7d231a32'}
-                 }
-                 });
-
-                 identiter.gett({}, function(){console.log("asdasdasdasdas")});
-                 .$promise.then(function (user) {
-                 console.log(user);
-                 }, function (errResponse) {
-
-                 });*/
-                /*                    $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-                 $http.defaults.headers.common['Authorization'] = 'token e6ca92786ef60fdb5a1c110a76b4507cdca04c9e';
-                 $http.defaults.headers.common['Accept'] = 'application/json;odata=verbose';*/
-                //console.log($cookies.get('Authorization'));
                 var self = this;
                 $http.get('http://127.0.0.1:8000/user', {
                     headers: {
@@ -103,7 +84,6 @@ angular.module('myApp', [
                     }
                 })
                     .success(function (data) {
-                        console.log("Jestem tutaj:" + $cookies.get('Authorization'));
                         self.authenticate(data);
                         deferred.resolve(_identity);
                     })
@@ -125,7 +105,6 @@ angular.module('myApp', [
                     return principal.identity()
                         .then(function () {
                             var isAuthenticated = principal.isAuthenticated();
-                            console.log(isAuthenticated);
                             /*if ($rootScope.toState.data.roles && $rootScope.toState.data.roles.length > 0
                              && !principal.isInAnyRole($rootScope.toState.data.roles)) {*/
                             if (isAuthenticated) {
@@ -242,7 +221,7 @@ angular.module('myApp', [
 
         var favs = {
             name: 'favs',
-            url: '/favs/{personId}',
+            url: '/favs',
             resolve: {
                 authorize: ['authorization',
                     function (authorization) {
@@ -256,7 +235,7 @@ angular.module('myApp', [
 
         var game_lib = {
             name: 'game_lib',
-            url: '/game_lib/{gameLibId}',
+            url: '/game_lib',
             resolve: {
                 authorize: ['authorization',
                     function (authorization) {

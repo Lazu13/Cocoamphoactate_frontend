@@ -22,7 +22,7 @@
                     <div id="bottomOfGame" class="separator clear-left">
                         <p class="btn-add">
                             <i class="glyphicon glyphicon-star"></i>
-                            <a ui-sref="game_lib({gameLibId: sampleGame.id})" class="hidden-sm">Add to game library</a>
+                            <a ng-controller="HomeCtrl" ng-click="addToGameLib(sampleGame.id)" class="hidden-sm">Add to game library</a>
                         </p>
                     </div>
                 </div>

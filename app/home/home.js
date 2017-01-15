@@ -87,4 +87,30 @@ angular.module('myApp.home', [
                     $scope.recGamesFriends = [];
                 });
         };
+
+        $scope.addToGameLib = function (id) {
+            var config = {
+                headers: {
+                    'Authorization': 'token ' + $cookies.get('Authorization'),
+                    'Content-Type': 'application/json'
+                }
+            };
+
+            var friendToAdd = {
+                "game": id
+            };
+
+            $http.post('http://127.0.0.1:8000/gamelib',
+                friendToAdd,
+                config
+            )
+                .success(function () {
+                    alert("You have added new game to your game library");
+                    $state.go($state.current, {}, {reload: true});
+                })
+                .error(function (response) {
+                    alert("Error!: " + response);
+                })
+        };
+
     }]);

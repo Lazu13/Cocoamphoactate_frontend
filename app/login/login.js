@@ -8,7 +8,7 @@ angular.module('myApp.login', [
     'myApp.register'
 ])
 
-    .controller('LoginCtrl', function ($scope, $rootScope, $state, $http, $cookies) {
+    .controller('LoginCtrl', function ($scope, $rootScope, $state, $http, $cookies, authorization) {
 
         $scope.goto = function () {
             var dataToSend = {
@@ -28,11 +28,27 @@ angular.module('myApp.login', [
             )
                 .success(function (data) {
                     $cookies.put('Authorization', data.token);
-                    alert("Logged in");
-                    if ($rootScope.returnToState != undefined)
-                        $state.go($rootScope.returnToState, $rootScope.returnToStateParams, {reload: true});
-                    else
-                        $state.go('home', {});
+                    $http.get('http://127.0.0.1:8000/user', {
+                        headers: {
+                            'Authorization': 'token ' + $cookies.get('Authorization'),
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                        .success(function (data) {
+                            console.log(data);
+                            if (data.is_superuser)
+                                $cookies.put('Roles', "admin");
+                            else
+                                $cookies.put('Roles', "user");
+                        })
+
+                        .then(function () {
+                            alert("Logged in");
+                            if ($rootScope.returnToState != undefined)
+                                $state.go($rootScope.returnToState, $rootScope.returnToStateParams, {reload: true});
+                            else
+                                $state.go('home', {});
+                        });
                 })
                 .error(function (err) {
                     $cookies.remove('Authorization');

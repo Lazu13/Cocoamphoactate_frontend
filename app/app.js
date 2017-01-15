@@ -3,8 +3,6 @@
 // Declare app level module which depends on views, and components
 angular.module('myApp', [
     'ui.router',
-    'ngMaterial',
-    'ngAria',
     'ngResource',
     'ngCookies',
     'myApp.home',
@@ -43,14 +41,14 @@ angular.module('myApp', [
             },
 
             isInRole: function (role) {
-                if (!_authenticated || !_identity.roles)
+                if (!_authenticated || !$cookies.get('Roles'))
                     return false;
 
-                return _identity.roles.indexOf(role) != -1;
+                return $cookies.get('Roles').indexOf(role) != -1;
             },
 
             isInAnyRole: function (roles) {
-                if (!_authenticated || !_identity.roles) return false;
+                if (!_authenticated || !$cookies.get('Roles')) return false;
 
                 for (var i = 0; i < roles.length; i++) {
                     if (this.isInRole(roles[i])) return true;
@@ -85,10 +83,11 @@ angular.module('myApp', [
                     }
                 })
                     .success(function (data) {
-                        if (data.is_superuser)
-                            data.roles = "admin";
-                        else
-                            data.roles = "user";
+                        console.log(data);
+                        /*if (data.is_superuser)
+                         data.roles = "admin";
+                         else
+                         data.roles = "user";*/
                         self.authenticate(data);
                         deferred.resolve(_identity);
                     })

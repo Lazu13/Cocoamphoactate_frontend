@@ -20,6 +20,6 @@
   "scripts": {
     "postinstall": "bower cache clean && bower install",
     "prestart": "npm install",
-    "start": "http-server -a localhost -p 5000 -c-1 ./app"
+    "start": "http-server -a localhost -p $PORT -c-1 ./app"
   }
 }

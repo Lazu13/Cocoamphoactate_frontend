@@ -8,5 +8,5 @@ npm start
 <br />
 Application is deployed on heroku:
 ```
-https://pite.herokuapp.com/
+https://cocoamphoactatefrontend.herokuapp.com/#/
 ```

@@ -12,7 +12,8 @@ angular.module('myApp.admin', [
             var gameToAdd = {
                 'title': $scope.game.title,
                 'description': $scope.game.description,
-                'platform': $scope.game.platform
+                'platform': $scope.game.platform,
+                'url': $scope.game.uri
             };
 
             var config = {
@@ -31,16 +32,18 @@ angular.module('myApp.admin', [
                     $state.go($state.current, {}, {reload: true});
                 })
                 .error(function (response) {
-                    alert("Error!. " + response);
+                    alert("Error!. " + response.detail);
                 })
         };
 
         $scope.editGame = function () {
+            console.log($scope.editGame.id);
             var gameToAdd = {
                 'id': $scope.editGame.id,
                 'title': $scope.editGame.title,
                 'description': $scope.editGame.description,
-                'platform': $scope.editGame.platform
+                'platform': $scope.editGame.platform,
+                'url': $scope.editGame.url
             };
 
             var config = {
@@ -59,7 +62,8 @@ angular.module('myApp.admin', [
                     $state.go($state.current, {}, {reload: true});
                 })
                 .error(function (response) {
-                    alert("Error!. " + response);
+                    console.log(response);
+                    alert("Error!. ");
                 })
         };
 
@@ -79,7 +83,8 @@ angular.module('myApp.admin', [
                     $state.go($state.current, {}, {reload: true});
                 })
                 .error(function (response) {
-                    alert("Error!. " + response);
+                    console.log(response);
+                    alert("Error!. " + response.detail);
                 })
         };
 

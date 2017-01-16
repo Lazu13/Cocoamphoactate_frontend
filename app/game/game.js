@@ -72,7 +72,6 @@ angular.module('myApp.game', [
                     for (item in data) {
                         getComment(data[item].user, $scope.reviews);
                     }
-                    console.log($scope.reviews);
                 })
 
                 .error(function () {

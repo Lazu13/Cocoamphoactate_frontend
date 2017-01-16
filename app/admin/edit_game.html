@@ -44,6 +44,16 @@
             </div>
 
             <div class="control-group">
+                <label class="control-label" for="url">editGame image</label>
+                <div class="controls">
+                    <input type="text" id="url" name="url" placeholder="" ng-model="editGame.url" required
+                           class="form-control input-lg">
+                    <p class="help-block">edtGame image</p>
+                </div>
+            </div>
+
+
+            <div class="control-group">
                 <div class="controls">
                     <span ng-show="edit_Game.$invalid" class="label label-danger">Required</span>
                     <button class="btn btn-success" ng-click="editGame()"

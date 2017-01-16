@@ -35,6 +35,15 @@
             </div>
 
             <div class="control-group">
+                <label class="control-label" for="uri">Game image</label>
+                <div class="controls">
+                    <input type="text" id="uri" name="uri" placeholder="" ng-model="game.uri" required
+                           class="form-control input-lg">
+                    <p class="help-block">Game image</p>
+                </div>
+            </div>
+
+            <div class="control-group">
                 <div class="controls">
                     <span ng-show="add_game.$invalid" class="label label-danger">Required</span>
                     <button class="btn btn-success" ng-click="addGame()"

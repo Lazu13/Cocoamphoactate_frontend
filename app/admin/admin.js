@@ -23,7 +23,7 @@ angular.module('myApp.admin', [
                 }
             };
 
-            $http.post('http://127.0.0.1:8000/games/add',
+            $http.post('https://pite.herokuapp.com//games/add',
                 gameToAdd,
                 config
             )
@@ -53,7 +53,7 @@ angular.module('myApp.admin', [
                 }
             };
 
-            $http.put('http://127.0.0.1:8000/games/' + $scope.editGame.id,
+            $http.put('https://pite.herokuapp.com//games/' + $scope.editGame.id,
                 gameToAdd,
                 config
             )
@@ -75,7 +75,7 @@ angular.module('myApp.admin', [
                 }
             };
 
-            $http.delete('http://127.0.0.1:8000/games/' + $scope.deleteGame.id,
+            $http.delete('https://pite.herokuapp.com//games/' + $scope.deleteGame.id,
                 config
             )
                 .success(function (response) {

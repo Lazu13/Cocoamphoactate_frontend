@@ -8,14 +8,14 @@ angular.module('myApp.notification', [
     .controller('NotificationCtrl', function ($scope, $state, $http, $cookies) {
 
         $scope.getSentNotifies = function () {
-            $http.get('http://127.0.0.1:8000/user', {
+            $http.get('https://pite.herokuapp.com//user', {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'
                 }
             })
                 .success(function (response) {
-                    $http.get('http://127.0.0.1:8000/friends/pending/sent', {
+                    $http.get('https://pite.herokuapp.com//friends/pending/sent', {
                         headers: {
                             'Authorization': 'token ' + $cookies.get('Authorization'),
                             'Content-Type': 'application/json'
@@ -28,7 +28,7 @@ angular.module('myApp.notification', [
                                     newFriendId = item.user_two;
                                 else if (item.user_two = response.id)
                                     newFriendId = item.user_one;
-                                $http.get('http://127.0.0.1:8000/users/' + newFriendId, {
+                                $http.get('https://pite.herokuapp.com//users/' + newFriendId, {
                                     headers: {
                                         'Authorization': 'token ' + $cookies.get('Authorization'),
                                         'Content-Type': 'application/json'
@@ -47,14 +47,14 @@ angular.module('myApp.notification', [
         };
 
         $scope.getNotifies = function () {
-            $http.get('http://127.0.0.1:8000/user', {
+            $http.get('https://pite.herokuapp.com//user', {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'
                 }
             })
                 .success(function (response) {
-                    $http.get('http://127.0.0.1:8000/friends/pending/received', {
+                    $http.get('https://pite.herokuapp.com//friends/pending/received', {
                         headers: {
                             'Authorization': 'token ' + $cookies.get('Authorization'),
                             'Content-Type': 'application/json'
@@ -67,7 +67,7 @@ angular.module('myApp.notification', [
                                     newFriendId = item.user_two;
                                 else if (item.user_two = response.id)
                                     newFriendId = item.user_one;
-                                $http.get('http://127.0.0.1:8000/users/' + newFriendId, {
+                                $http.get('https://pite.herokuapp.com//users/' + newFriendId, {
                                     headers: {
                                         'Authorization': 'token ' + $cookies.get('Authorization'),
                                         'Content-Type': 'application/json'
@@ -88,7 +88,7 @@ angular.module('myApp.notification', [
         $scope.acceptInvitation = function (id) {
             var r = confirm("Add user to your friendship list?");
             if (r == true) {
-                $http.get('http://127.0.0.1:8000/friends/pending/accept/' + id, {
+                $http.get('https://pite.herokuapp.com//friends/pending/accept/' + id, {
                     headers: {
                         'Authorization': 'token ' + $cookies.get('Authorization'),
                         'Content-Type': 'application/json'

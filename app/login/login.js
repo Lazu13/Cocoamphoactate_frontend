@@ -22,13 +22,13 @@ angular.module('myApp.login', [
                 }
             };
 
-            $http.post('http://127.0.0.1:8000/users/login',
+            $http.post('https://pite.herokuapp.com//users/login',
                 dataToSend,
                 config
             )
                 .success(function (data) {
                     $cookies.put('Authorization', data.token);
-                    $http.get('http://127.0.0.1:8000/user', {
+                    $http.get('https://pite.herokuapp.com//user', {
                         headers: {
                             'Authorization': 'token ' + $cookies.get('Authorization'),
                             'Content-Type': 'application/json'

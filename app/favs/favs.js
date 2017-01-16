@@ -16,7 +16,7 @@ angular.module('myApp.favs', [
         };
 
         $scope.getGames = function () {
-            $http.get('http://127.0.0.1:8000/favs', {
+            $http.get('https://pite.herokuapp.com//favs', {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'
@@ -25,7 +25,7 @@ angular.module('myApp.favs', [
                 .success(function (data) {
                     $scope.games = [];
                     data.forEach(function (item) {
-                        $http.get('http://127.0.0.1:8000/games/' + item.game, {
+                        $http.get('https://pite.herokuapp.com//games/' + item.game, {
                             headers: {
                                 'Authorization': 'token ' + $cookies.get('Authorization'),
                                 'Content-Type': 'application/json'

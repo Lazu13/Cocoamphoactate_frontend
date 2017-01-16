@@ -10,7 +10,7 @@ angular.module('myApp.users', [
     .controller('UsersCtrl', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies) {
 
         $scope.getUsers = function () {
-            $http.get('http://127.0.0.1:8000/friends', {
+            $http.get('https://pite.herokuapp.com//friends', {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'
@@ -19,7 +19,7 @@ angular.module('myApp.users', [
                 .success(function (data) {
                     data.forEach(function (item) {
                         item.id1 = item.user_one;
-                        $http.get('http://127.0.0.1:8000/users/' + item.id1, {
+                        $http.get('https://pite.herokuapp.com//users/' + item.id1, {
                             headers: {
                                 'Authorization': 'token ' + $cookies.get('Authorization'),
                                 'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ angular.module('myApp.users', [
                             });
 
                         item.id2 = item.user_two;
-                        $http.get('http://127.0.0.1:8000/users/' + item.id2, {
+                        $http.get('https://pite.herokuapp.com//users/' + item.id2, {
                             headers: {
                                 'Authorization': 'token ' + $cookies.get('Authorization'),
                                 'Content-Type': 'application/json'

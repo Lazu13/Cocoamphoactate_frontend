@@ -12,7 +12,7 @@ angular.module('myApp.user_profile', [
     .controller('UserProfileCtrl', function ($scope, $cookies, $http, $state) {
 
         $scope.getUser = function () {
-            $http.get('http://127.0.0.1:8000/user', {
+            $http.get('https://pite.herokuapp.com//user', {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'

@@ -18,7 +18,7 @@ angular.module('myApp.home', [
 
         // Was used before reimplementation of the endpoint
         var getGames = function (item, games) {
-            $http.get('http://127.0.0.1:8000/games/' + item, {
+            $http.get('https://pite.herokuapp.com//games/' + item, {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ angular.module('myApp.home', [
         };
 
         $scope.topGames = function () {
-            $http.get('http://127.0.0.1:8000/users/recommend/mostPopular', {
+            $http.get('https://pite.herokuapp.com//users/recommend/mostPopular', {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'
@@ -57,7 +57,7 @@ angular.module('myApp.home', [
         };
 
         $scope.recommendedGames = function () {
-            $http.get('http://127.0.0.1:8000/users/recommend/type/' + '0', {
+            $http.get('https://pite.herokuapp.com//users/recommend/type/' + '0', {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'
@@ -76,7 +76,7 @@ angular.module('myApp.home', [
         };
 
         $scope.recommendedGamesFriends = function () {
-            return $http.get('http://127.0.0.1:8000/users/recommend/type/' + '1', {
+            return $http.get('https://pite.herokuapp.com//users/recommend/type/' + '1', {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'
@@ -106,7 +106,7 @@ angular.module('myApp.home', [
                 "game": id
             };
 
-            $http.post('http://127.0.0.1:8000/gamelib',
+            $http.post('https://pite.herokuapp.com//gamelib',
                 friendToAdd,
                 config
             )

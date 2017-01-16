@@ -16,7 +16,7 @@ angular.module('myApp.games', [
         };
 
         $scope.getGames = function () {
-            $http.get('https://pite.herokuapp.com//games', {
+            $http.get('https://pite.herokuapp.com/games', {
                 headers: {
                     'Content-Type': 'application/json'
                 }

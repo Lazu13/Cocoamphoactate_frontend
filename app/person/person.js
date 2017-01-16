@@ -9,7 +9,7 @@ angular.module('myApp.person', [
     .controller('PersonCtrl', function ($scope, $http, $cookies, $state, $stateParams) {
 
         $scope.getUser = function () {
-            $http.get('https://pite.herokuapp.com//users/' + $stateParams.personId, {
+            $http.get('https://pite.herokuapp.com/users/' + $stateParams.personId, {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ angular.module('myApp.person', [
                     "user_two": id
                 };
 
-                $http.post('https://pite.herokuapp.com//friends/pending/add',
+                $http.post('https://pite.herokuapp.com/friends/pending/add',
                     friendToAdd,
                     config
                 )

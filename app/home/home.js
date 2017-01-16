@@ -18,7 +18,7 @@ angular.module('myApp.home', [
 
         // Was used before reimplementation of the endpoint
         var getGames = function (item, games) {
-            $http.get('https://pite.herokuapp.com//games/' + item, {
+            $http.get('https://pite.herokuapp.com/games/' + item, {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ angular.module('myApp.home', [
         };
 
         $scope.topGames = function () {
-            $http.get('https://pite.herokuapp.com//users/recommend/mostPopular', {
+            $http.get('https://pite.herokuapp.com/users/recommend/mostPopular', {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'
@@ -57,7 +57,7 @@ angular.module('myApp.home', [
         };
 
         $scope.recommendedGames = function () {
-            $http.get('https://pite.herokuapp.com//users/recommend/type/' + '0', {
+            $http.get('https://pite.herokuapp.com/users/recommend/type/' + '0', {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'
@@ -76,7 +76,7 @@ angular.module('myApp.home', [
         };
 
         $scope.recommendedGamesFriends = function () {
-            return $http.get('https://pite.herokuapp.com//users/recommend/type/' + '1', {
+            return $http.get('https://pite.herokuapp.com/users/recommend/type/' + '1', {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'
@@ -106,7 +106,7 @@ angular.module('myApp.home', [
                 "game": id
             };
 
-            $http.post('https://pite.herokuapp.com//gamelib',
+            $http.post('https://pite.herokuapp.com/gamelib',
                 friendToAdd,
                 config
             )

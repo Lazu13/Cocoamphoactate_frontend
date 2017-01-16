@@ -10,7 +10,7 @@ angular.module('myApp.friends', [
     .controller('FriendsCtrl', ['$scope', '$http', '$cookies', function ($scope, $http, $cookies, $state, $stateParams) {
 
         $scope.getFriends = function () {
-            $http.get('https://pite.herokuapp.com//friends/my', {
+            $http.get('https://pite.herokuapp.com/friends/my', {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'

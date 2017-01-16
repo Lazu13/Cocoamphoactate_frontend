@@ -23,7 +23,7 @@ angular.module('myApp.register', [
                 }
             };
 
-            $http.post('https://pite.herokuapp.com//users/register',
+            $http.post('https://pite.herokuapp.com/users/register',
                 dataToSend,
                 config
             )

@@ -16,7 +16,7 @@ angular.module('myApp.game_lib', [
         };
 
         $scope.getGames = function () {
-            $http.get('https://pite.herokuapp.com//gamelib', {
+            $http.get('https://pite.herokuapp.com/gamelib', {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'
@@ -25,7 +25,7 @@ angular.module('myApp.game_lib', [
                 .success(function (data) {
                     $scope.games = [];
                     data.forEach(function (item) {
-                        $http.get('https://pite.herokuapp.com//games/' + item.game, {
+                        $http.get('https://pite.herokuapp.com/games/' + item.game, {
                             headers: {
                                 'Authorization': 'token ' + $cookies.get('Authorization'),
                                 'Content-Type': 'application/json'
@@ -61,7 +61,7 @@ angular.module('myApp.game_lib', [
                 "game": id
             };
 
-            $http.post('https://pite.herokuapp.com//favs',
+            $http.post('https://pite.herokuapp.com/favs',
                 friendToAdd,
                 config
             )

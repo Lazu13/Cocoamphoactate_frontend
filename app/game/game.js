@@ -18,7 +18,7 @@ angular.module('myApp.game', [
         };
 
         $scope.getGame = function () {
-            $http.get('https://pite.herokuapp.com//games/' + $stateParams.gameId, {
+            $http.get('https://pite.herokuapp.com/games/' + $stateParams.gameId, {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'
@@ -35,7 +35,7 @@ angular.module('myApp.game', [
         };
 
         var getComment = function (item, reviews) {
-            $http.get('https://pite.herokuapp.com//users/' + item, {
+            $http.get('https://pite.herokuapp.com/users/' + item, {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ angular.module('myApp.game', [
         };
 
         $scope.getComments = function () {
-            $http.get('https://pite.herokuapp.com//reviews/' + $stateParams.gameId, {
+            $http.get('https://pite.herokuapp.com/reviews/' + $stateParams.gameId, {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'
@@ -86,7 +86,7 @@ angular.module('myApp.game', [
 
         $scope.prepareUser = function () {
             $scope.starRating = 5;
-            $http.get('https://pite.herokuapp.com//user', {
+            $http.get('https://pite.herokuapp.com/user', {
                 headers: {
                     'Authorization': 'token ' + $cookies.get('Authorization'),
                     'Content-Type': 'application/json'
@@ -121,12 +121,12 @@ angular.module('myApp.game', [
                     }
                 };
 
-                $http.post('https://pite.herokuapp.com//reviews/add',
+                $http.post('https://pite.herokuapp.com/reviews/add',
                     reviewToAdd,
                     config
                 )
                     .success(function () {
-                        $http.post('https://pite.herokuapp.com//games/' + $stateParams.gameId + '/grade',
+                        $http.post('https://pite.herokuapp.com/games/' + $stateParams.gameId + '/grade',
                             scoreToAdd,
                             config
                         )

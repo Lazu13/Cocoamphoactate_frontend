@@ -43,7 +43,7 @@ angular.module('myApp.typeahead', [
                 return;
 
             if ($rootScope.selection.id == $scope.data[1].id) {
-                return $http.post('https://pite.herokuapp.com//users/users/search',
+                return $http.post('https://pite.herokuapp.com/users/users/search',
                     dataToSend,
                     config
                 )
@@ -55,7 +55,7 @@ angular.module('myApp.typeahead', [
                     });
             }
             else if ($rootScope.selection.id == $scope.data[0].id) {
-                return $http.post('https://pite.herokuapp.com//users/games/search',
+                return $http.post('https://pite.herokuapp.com/users/games/search',
                     dataToSend,
                     config
                 )

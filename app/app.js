@@ -74,7 +74,7 @@ angular.module('myApp', [
                 }
 
                 var self = this;
-                $http.get('https://pite.herokuapp.com//user', {
+                $http.get('https://pite.herokuapp.com/user', {
                     headers: {
                         'Authorization': 'token ' + $cookies.get('Authorization'),
                         'Content-Type': 'application/json'

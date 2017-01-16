@@ -12,7 +12,6 @@ angular.module('myApp.logout', [
 
         $scope.destroy_token = function () {
             $cookies.remove('Authorization');
-            $cookies.remove('ID');
             alert("Wylogowane pomyślnie");
             $state.go('home');
         }

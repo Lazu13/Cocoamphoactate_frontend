@@ -43,7 +43,6 @@ angular.module('myApp.favs', [
                                 $scope.games.push(item);
                             });
                     });
-                    console.log($scope.games);
                 })
                 .error(function () {
                     $scope.games = [];

@@ -43,7 +43,6 @@ angular.module('myApp.game_lib', [
                                 $scope.games.push(item);
                             });
                     });
-                    console.log($scope.games);
                 })
                 .error(function () {
                     $scope.games = [];
